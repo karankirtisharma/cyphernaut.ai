@@ -30,12 +30,11 @@ export default function LaunchView() {
             <article className="leg" data-leg>
               <span className="leg-num" aria-hidden="true">01</span>
               <i className="leg-node" aria-hidden="true" />
-              <div className="leg-art slot" data-leg-art>
-                <div className="haze" />
-                <div className="art">
-                  <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-anticipation.webp")' }} />
-                </div>
-              </div>
+              <div
+                className="leg-art"
+                data-leg-art
+                style={{ backgroundImage: 'url("/assets/peak-anticipation.webp")' }}
+              />
               <div className="leg-copy">
                 <p className="lbl lime" data-leg-w>Pre-launch</p>
                 <h2 className="dl" data-leg-w>Anticipation.</h2>
@@ -43,15 +42,14 @@ export default function LaunchView() {
               </div>
             </article>
 
-            <article className="leg leg-peak lit" data-leg>
+            <article className="leg leg-peak" data-leg>
               <span className="leg-num" aria-hidden="true">02</span>
               <i className="leg-node" aria-hidden="true" />
-              <div className="leg-art slot" data-leg-art>
-                <div className="haze" />
-                <div className="art">
-                  <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-ignition.webp")' }} />
-                </div>
-              </div>
+              <div
+                className="leg-art"
+                data-leg-art
+                style={{ backgroundImage: 'url("/assets/peak-ignition.webp")' }}
+              />
               <div className="leg-copy">
                 <p className="lbl lime" data-leg-w>Launch day</p>
                 <h2 className="dxl lime" data-leg-w>Ignition.</h2>
@@ -63,12 +61,11 @@ export default function LaunchView() {
             <article className="leg" data-leg>
               <span className="leg-num" aria-hidden="true">03</span>
               <i className="leg-node" aria-hidden="true" />
-              <div className="leg-art slot" data-leg-art>
-                <div className="haze" />
-                <div className="art">
-                  <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-momentum.webp")' }} />
-                </div>
-              </div>
+              <div
+                className="leg-art"
+                data-leg-art
+                style={{ backgroundImage: 'url("/assets/peak-momentum.webp")' }}
+              />
               <div className="leg-copy">
                 <p className="lbl lime" data-leg-w>Post-launch</p>
                 <h2 className="dl" data-leg-w>Momentum.</h2>

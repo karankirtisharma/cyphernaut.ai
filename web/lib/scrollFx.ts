@@ -178,7 +178,6 @@ function trajectory() {
   if (!root || !line) return;
 
   const legs = $$<HTMLElement>("[data-leg]", root);
-  root.classList.add("traj-fx");
 
   /* the head glow fades in over the first slice rather than popping on at 0 */
   ScrollTrigger.create({
@@ -211,36 +210,28 @@ function trajectory() {
       scrollTrigger: { trigger: leg, start: "top 74%", once: true },
     });
 
+    /* The hidden state is set here rather than in the stylesheet. A CSS
+       pre-hide strands its element for good if the trigger never fires — which
+       is exactly what happened when late-loading art changed the section's
+       height and left the measurements stale, and is why the illustrations
+       were disappearing. Set from JS, the worst case is no animation at all,
+       never a missing image. */
     if (art) {
-      /* clip-path, not transform: .slot children are absolutely positioned and
-         a transform here would fight the [data-par] parallax on the shot */
+      /* opacity and a small scale, no clip. The art is a cut-out render with
+         no frame around it now, so a wipe would cut through the artwork
+         itself. 0.96, not 0 — nothing appears out of nothing. */
       tl.fromTo(
         art,
-        { clipPath: "inset(0% 0% 100% 0% round 24px)" },
-        {
-          clipPath: "inset(0% 0% 0% 0% round 24px)",
-          duration: 0.85,
-          ease: "expo.out",
-          /* left in place it would keep clipping the plate's inset highlight */
-          onComplete: () => gsap.set(art, { clearProps: "clipPath" }),
-        },
+        { opacity: 0, y: 26, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "expo.out" },
       );
     }
     if (words.length) {
       tl.fromTo(
         words,
         { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          ease: "expo.out",
-          stagger: 0.06,
-          /* no clearProps: the initial opacity:0 lives in the stylesheet so
-             there is no flash before JS runs, which means clearing the inline
-             opacity:1 would hand the element straight back to that rule */
-        },
-        0.16,
+        { y: 0, opacity: 1, duration: 0.6, ease: "expo.out", stagger: 0.06 },
+        0.14,
       );
     }
   });
