@@ -46,8 +46,8 @@ export default function ServicesView() {
               </div>
               <div className="pillar-body">
                 <article className="svc" data-rise>
-                  <h4 className="ds">AI &amp; Crypto Launch Marketing</h4>
-                  <p>Full-spectrum marketing that puts an AI product or a token in front of the right audience, from pre-launch buzz to post-launch growth.</p>
+                  <h4 className="ds">AI &amp; Product Launch Marketing</h4>
+                  <p>Full-spectrum marketing that puts the product in front of the right audience, from pre-launch buzz to post-launch growth.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '60ms' }}>
                   <h4 className="ds">Tokenomics Strategy &amp; Design</h4>
@@ -76,7 +76,7 @@ export default function ServicesView() {
                 </article>
                 <article className="svc" data-rise style={{ '--d': '120ms' }}>
                   <h4 className="ds">Content Marketing</h4>
-                  <p>Articles, whitepapers, videos, tutorials and educational material that establish thought leadership and explain a model or a protocol plainly. Also shareable memecoin avatars and illustrations.</p>
+                  <p>Articles, whitepapers, videos, tutorials and educational material that establish thought leadership and explain a model or a protocol plainly. Plus the visual assets that carry it: diagrams, illustrations and social cards.</p>
                 </article>
               </div>
             </div>
@@ -110,15 +110,15 @@ export default function ServicesView() {
               <div className="pillar-body">
                 <article className="svc" data-rise>
                   <h4 className="ds">Influencer Outreach &amp; Campaigns</h4>
-                  <p>Leading AI and crypto voices, YouTubers and thought leaders, through authentic partnerships and strategic collaborations.</p>
+                  <p>Leading AI and Web3 voices, YouTubers and thought leaders, through authentic partnerships and strategic collaborations.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '60ms' }}>
                   <h4 className="ds">AI &amp; Blockchain Partnerships</h4>
-                  <p>Strategic partnerships with AI labs, blockchain projects and DeFi protocols that expand reach and create mutual value.</p>
+                  <p>Strategic partnerships with AI labs, platform teams and Web3 protocols that expand reach and create mutual value.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '120ms' }}>
                   <h4 className="ds">Reputation Management &amp; PR</h4>
-                  <p>Strategic PR campaigns, crisis management and positive coverage in AI, crypto and mainstream outlets.</p>
+                  <p>Strategic PR campaigns, crisis management and positive coverage in AI, tech and mainstream outlets.</p>
                 </article>
               </div>
             </div>

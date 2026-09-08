@@ -124,7 +124,7 @@ export default function HomeView() {
               <h2 className="dl" data-rise>A project nobody has heard of is a private project.</h2>
             </div>
             <div className="bd">
-              <p className="meas" data-rise style={{ '--d': '70ms' }}>Cyphernaut builds, launches and grows AI and Web3 projects. Whether it is an AI product, the next memecoin or a DeFi platform, the work is the same: strategy tailored to the project, a launch that lands, and growth that holds.</p>
+              <p className="meas" data-rise style={{ '--d': '70ms' }}>Cyphernaut builds, launches and grows AI and Web3 projects. Whether it is an AI product, an internal platform or a Web3 protocol, the work is the same: strategy tailored to the project, a launch that lands, and growth that holds.</p>
               <p className="meas" data-rise style={{ '--d': '140ms' }}>Every engagement is end to end. One experienced team carries the project through every step, from the first commit and the first announcement to the growth that follows, in a landscape, AI and on-chain alike, that does not sit still.</p>
               <p className="meas soft" data-rise style={{ '--d': '210ms' }}>End to end. One team from the first announcement to the growth that follows.</p>
             </div>
@@ -148,8 +148,8 @@ export default function HomeView() {
                   <p style={{ maxWidth: '30ch' }}>From the first idea to launch day: the plan, the story, the drop.</p>
                   <div className="rows">
                     <button className="srow" type="button" aria-expanded="false">
-                      <span className="srow-n">AI &amp; Crypto Launch Marketing</span>
-                      <span className="vh" data-desc>Full-spectrum marketing that puts an AI product or a token in front of the right audience, from pre-launch buzz to post-launch growth.</span>
+                      <span className="srow-n">AI &amp; Product Launch Marketing</span>
+                      <span className="vh" data-desc>Full-spectrum marketing that puts the product in front of the right audience, from pre-launch buzz to post-launch growth.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                     <button className="srow" type="button" aria-expanded="false">
@@ -184,7 +184,7 @@ export default function HomeView() {
                     </button>
                     <button className="srow" type="button" aria-expanded="false">
                       <span className="srow-n">Content Marketing</span>
-                      <span className="vh" data-desc>Articles, whitepapers, videos, tutorials and educational material that establish thought leadership and explain a model or a protocol plainly. Also shareable memecoin avatars and illustrations.</span>
+                      <span className="vh" data-desc>Articles, whitepapers, videos, tutorials and educational material that establish thought leadership and explain a model or a protocol plainly. Plus the visual assets that carry it: diagrams, illustrations and social cards.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                   </div>
@@ -224,17 +224,17 @@ export default function HomeView() {
                   <div className="rows">
                     <button className="srow" type="button" aria-expanded="false">
                       <span className="srow-n">Influencer Outreach &amp; Campaigns</span>
-                      <span className="vh" data-desc>Leading AI and crypto voices, YouTubers and thought leaders, through authentic partnerships and strategic collaborations.</span>
+                      <span className="vh" data-desc>Leading AI and Web3 voices, YouTubers and thought leaders, through authentic partnerships and strategic collaborations.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                     <button className="srow" type="button" aria-expanded="false">
                       <span className="srow-n">AI &amp; Blockchain Partnerships</span>
-                      <span className="vh" data-desc>Strategic partnerships with AI labs, blockchain projects and DeFi protocols that expand reach and create mutual value.</span>
+                      <span className="vh" data-desc>Strategic partnerships with AI labs, platform teams and Web3 protocols that expand reach and create mutual value.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                     <button className="srow" type="button" aria-expanded="false">
                       <span className="srow-n">Reputation Management &amp; PR</span>
-                      <span className="vh" data-desc>Strategic PR campaigns, crisis management and positive coverage in AI, crypto and mainstream outlets.</span>
+                      <span className="vh" data-desc>Strategic PR campaigns, crisis management and positive coverage in AI, tech and mainstream outlets.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                   </div>
@@ -324,7 +324,7 @@ export default function HomeView() {
           <div className="wrap">
             <h2 className="dl" data-rise style={{ maxWidth: '18ch' }}>What comes with it.</h2>
             <div className="olist">
-              <div className="oitem" data-rise><h3 className="dm">Increased visibility.</h3><p>Stand out in a crowded AI and crypto landscape and reach the target audience.</p></div>
+              <div className="oitem" data-rise><h3 className="dm">Increased visibility.</h3><p>Stand out in a crowded AI and software landscape and reach the target audience.</p></div>
               <div className="oitem" data-rise style={{ '--d': '60ms' }}><h3 className="dm">Investor confidence.</h3><p>Trust built through transparent communication and strategic marketing.</p></div>
               <div className="oitem" data-rise style={{ '--d': '120ms' }}><h3 className="dm">Future-ready strategies.</h3><p>Solutions for tomorrow's challenges, not only today's.</p></div>
               <div className="oitem" data-rise style={{ '--d': '180ms' }}><h3 className="dm">24/7 support.</h3><p>Round-the-clock assistance when it is needed.</p></div>

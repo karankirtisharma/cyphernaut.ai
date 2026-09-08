@@ -80,7 +80,7 @@ export default function LaunchView() {
           <div className="wrap">
             <h2 className="dl" data-rise style={{ maxWidth: '18ch' }}>What comes with it.</h2>
             <div className="tlist" style={{ marginTop: 'clamp(2.5rem,5vw,4rem)' }}>
-              <div className="titem" data-rise style={{ borderTop: '0' }}><h3 className="dm">Increased visibility.</h3><p>Stand out in a crowded AI and crypto landscape and reach the target audience.</p></div>
+              <div className="titem" data-rise style={{ borderTop: '0' }}><h3 className="dm">Increased visibility.</h3><p>Stand out in a crowded AI and software landscape and reach the target audience.</p></div>
               <div className="titem" data-rise style={{ '--d': '60ms', borderTop: '0' }}><h3 className="dm">Investor confidence.</h3><p>Trust built through transparent communication and strategic marketing.</p></div>
               <div className="titem" data-rise style={{ '--d': '120ms' }}><h3 className="dm">Future-ready strategies.</h3><p>Solutions for tomorrow's challenges, not only today's.</p></div>
               <div className="titem" data-rise style={{ '--d': '180ms' }}><h3 className="dm">24/7 support.</h3><p>Round-the-clock assistance when it is needed.</p></div>
