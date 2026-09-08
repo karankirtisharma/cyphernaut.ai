@@ -548,8 +548,15 @@ h1,h2,h3{margin:0;font-family:var(--font-display);text-wrap:balance}
 .b4{grid-column:10/13;grid-row:2/3}
 .feat .core>*{position:relative}
 .feat .core>p:first-of-type{font-size:1.125rem}
-.featart{position:absolute;right:-16%;top:22%;width:82%;aspect-ratio:1/1;border-radius:50%;pointer-events:none;opacity:.2;background:repeating-radial-gradient(circle at 50% 50%,rgba(10,12,8,.95) 0 1px,rgba(10,12,8,0) 1px 8px);-webkit-mask:radial-gradient(closest-side,#000 58%,rgba(0,0,0,0) 100%);mask:radial-gradient(closest-side,#000 58%,rgba(0,0,0,0) 100%)}
-.featart::after{content:"";position:absolute;inset:14%;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(10,12,8,.55)}
+/* The concentric-ring pattern this used to draw is replaced by the tesseract.
+   No mask: the artwork carries its own alpha, and the radial mask that faded
+   the rings out would have eaten the cube's corners. .feat .core is
+   overflow:hidden, so the bleed off the right edge is clipped cleanly. */
+.featart{
+  position:absolute;right:-10%;top:2%;width:78%;aspect-ratio:1/1;
+  pointer-events:none;opacity:.92;
+  background:url("/assets/tesseract.webp") no-repeat center/contain;
+}
 .pname{display:flex;align-items:baseline;gap:.9rem}
 .rows{display:flex;flex-direction:column;margin-top:auto}
 .srow{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;text-align:left;padding:.9rem 0;border-top:1px solid var(--hair);border-radius:var(--r-1);min-height:52px;transition:color .14s var(--ease-out)}
