@@ -37,7 +37,7 @@ export default function ServicesView() {
                 <div className="shell feat" data-rise>
                   <div className="core">
                     <h2 className="dm">LAUNCH</h2>
-                    <p style={{ fontSize: '1.125rem' }}>From the first idea to launch day: the plan, the token, the drop.</p>
+                    <p style={{ fontSize: '1.125rem' }}>From the first idea to launch day: the plan, the story, the drop.</p>
                     <div className="launch-note">
                       <span className="pill-note" style={{ borderColor: 'rgba(10,12,8,.25)', color: 'rgba(10,12,8,.75)' }}>Featured pillar</span>
                     </div>
@@ -46,8 +46,8 @@ export default function ServicesView() {
               </div>
               <div className="pillar-body">
                 <article className="svc" data-rise>
-                  <h4 className="ds">Crypto Project Marketing &amp; Launching</h4>
-                  <p>Full-spectrum marketing that puts the project in front of the right audience, from pre-launch buzz to post-launch growth.</p>
+                  <h4 className="ds">AI &amp; Crypto Launch Marketing</h4>
+                  <p>Full-spectrum marketing that puts an AI product or a token in front of the right audience, from pre-launch buzz to post-launch growth.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '60ms' }}>
                   <h4 className="ds">Tokenomics Strategy &amp; Design</h4>
@@ -67,8 +67,8 @@ export default function ServicesView() {
               </div>
               <div className="pillar-body">
                 <article className="svc" data-rise>
-                  <h4 className="ds">Web3 Marketing &amp; Campaigns</h4>
-                  <p>Marketing built for the Web3 ecosystem: decentralized platforms and blockchain-native approaches that reach the target audience.</p>
+                  <h4 className="ds">AI &amp; Web3 Campaigns</h4>
+                  <p>Campaigns built for where these audiences actually gather: AI and developer communities, decentralized platforms and blockchain-native channels.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '60ms' }}>
                   <h4 className="ds">Social Media Management &amp; Handling</h4>
@@ -76,7 +76,7 @@ export default function ServicesView() {
                 </article>
                 <article className="svc" data-rise style={{ '--d': '120ms' }}>
                   <h4 className="ds">Content Marketing</h4>
-                  <p>Articles, whitepapers, videos, tutorials and educational material that establish thought leadership and explain blockchain plainly. Also shareable memecoin avatars and illustrations.</p>
+                  <p>Articles, whitepapers, videos, tutorials and educational material that establish thought leadership and explain a model or a protocol plainly. Also shareable memecoin avatars and illustrations.</p>
                 </article>
               </div>
             </div>
@@ -96,8 +96,8 @@ export default function ServicesView() {
                   <p>Discord, Telegram and other community platforms, with active moderation, engagement and governance for the DAO or community.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '120ms' }}>
-                  <h4 className="ds">Web3 Community Incubation &amp; Growth</h4>
-                  <p>Community building from inception to scale: governance structures, incentive programs and sustainable growth strategies.</p>
+                  <h4 className="ds">AI &amp; Web3 Community Growth</h4>
+                  <p>Community building from inception to scale: governance structures, incentive programs and sustainable growth strategies, on-chain or around a model.</p>
                 </article>
               </div>
             </div>
@@ -110,15 +110,15 @@ export default function ServicesView() {
               <div className="pillar-body">
                 <article className="svc" data-rise>
                   <h4 className="ds">Influencer Outreach &amp; Campaigns</h4>
-                  <p>Top crypto influencers, YouTubers and thought leaders, through authentic partnerships and strategic collaborations.</p>
+                  <p>Leading AI and crypto voices, YouTubers and thought leaders, through authentic partnerships and strategic collaborations.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '60ms' }}>
-                  <h4 className="ds">Blockchain Partnerships &amp; Collaborations</h4>
-                  <p>Strategic partnerships with other blockchain projects, DeFi protocols and crypto influencers that expand reach and create mutual value.</p>
+                  <h4 className="ds">AI &amp; Blockchain Partnerships</h4>
+                  <p>Strategic partnerships with AI labs, blockchain projects and DeFi protocols that expand reach and create mutual value.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '120ms' }}>
                   <h4 className="ds">Reputation Management &amp; PR</h4>
-                  <p>Strategic PR campaigns, crisis management and positive coverage in crypto and mainstream outlets.</p>
+                  <p>Strategic PR campaigns, crisis management and positive coverage in AI, crypto and mainstream outlets.</p>
                 </article>
               </div>
             </div>

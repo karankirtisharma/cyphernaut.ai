@@ -4,12 +4,12 @@ import TeamView from "./view";
 
 export const metadata: Metadata = {
   title: "The crew | Cyphernaut",
-  description: "Four people. Every engagement, end to end. The team behind Cyphernaut's crypto and Web3 launches.",
+  description: "Four people. Every engagement, end to end. The team behind Cyphernaut's AI and Web3 launches.",
   alternates: { canonical: "/team" },
   openGraph: {
     ...OG_BASE,
     title: "The crew | Cyphernaut",
-    description: "Four people. Every engagement, end to end. The team behind Cyphernaut's crypto and Web3 launches.",
+    description: "Four people. Every engagement, end to end. The team behind Cyphernaut's AI and Web3 launches.",
     url: "/team",
   },
 };

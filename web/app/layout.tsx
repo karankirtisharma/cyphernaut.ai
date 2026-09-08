@@ -53,11 +53,11 @@ export const metadata: Metadata = {
      actually served from or crawlers and link unfurlers fetch the wrong one. */
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Cyphernaut | Crypto and Web3 launch marketing",
+    default: "Cyphernaut | AI and Web3 launch marketing",
     template: "%s",
   },
   description:
-    "Cyphernaut plans, launches and grows crypto and Web3 projects: tokenomics, marketing and community, from first announcement to sustained growth.",
+    "Cyphernaut plans, launches and grows AI and Web3 projects: strategy, tokenomics, marketing and community, from first announcement to sustained growth.",
   openGraph: {
     type: "website",
     siteName: "Cyphernaut",
