@@ -219,7 +219,11 @@ export function initScrollFx(signal: AbortSignal) {
                bug, not as an effect */
             start: "top 88%",
             end: "bottom 62%",
-            scrub: 0.6,
+            /* true, not a number. Lenis already smooths the scroll position;
+               a numeric scrub adds a second, independent catch-up on top of
+               it, so this copy trailed the hero, peak and rail — which read
+               raw scrollY — by 0.6s. One smoother for the whole page. */
+            scrub: true,
             /* will-change is a hint for motion that is about to happen, not a
                label to leave on 50+ inline spans for the life of the page */
             onToggle: ({ isActive }) =>
@@ -251,7 +255,8 @@ export function initScrollFx(signal: AbortSignal) {
             trigger: el.parentElement ?? el,
             start: "top bottom",
             end: "bottom top",
-            scrub: 0.8,
+            /* see .meas above: Lenis is the only smoother */
+            scrub: true,
           },
         },
       );

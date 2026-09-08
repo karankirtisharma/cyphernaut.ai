@@ -569,7 +569,13 @@ h1,h2,h3{margin:0;font-family:var(--font-display);text-wrap:balance}
 .detail{min-height:5.1em;font-size:.9375rem;line-height:1.55;color:var(--ink-soft);transition:opacity .16s var(--ease-out)}
 .feat .detail{color:rgba(10,12,8,.78)}
 
-#peak{height:340vh}
+/* 265, not 340. Beat spacing — the scroll distance between one state change
+   and the next — is what makes the sequence feel uniform, and peak's two
+   changes land at 36% and 69% of its scrubbed range, so spacing is 0.33x that
+   range. At 340vh that was 79vh between beats while #silence ran 35vh, a 2.3x
+   swing that read as the page speeding up and slowing down. Both are ~55vh
+   now. */
+#peak{height:265vh}
 .peakstage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
 .peakgrid{width:100%;align-items:center}
 .peakcoin{grid-column:2/8;display:grid;place-items:center}
@@ -642,7 +648,7 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
   .herocopy{grid-column:1/13;gap:1.5rem}
   .coinplane{--cs:96vw;right:auto;left:50%;top:46%;transform:translate(-50%,-50%);opacity:.6;z-index:1}
   .heroinner{align-items:center}
-  #peak{height:300vh}
+  #peak{height:235vh}
   .peakstage{align-items:center}
   .peakgrid{display:flex;flex-direction:column;gap:2.5rem}
   /* .peakgrid is align-items:center, so a column flex item is sized to its
@@ -663,9 +669,12 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
   [data-rise],[data-wipe],[data-iris]{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
   .hline{overflow:visible}
   .hline>span{transform:none!important}
-  #home,#peak,#team,#contact{height:auto!important}
+  #home,#peak,#team,#contact,#silence{height:auto!important}
   .herostage,.peakstage,.railstage,.closestage{position:relative!important;height:auto!important;min-height:100vh;padding:6rem 0}
   .peakcopy{position:static;min-height:0;display:flex;flex-direction:column;gap:3rem}
+  /* #silence was left out of the height reset above, so a reduced-motion
+     reader got 240vh of scrolling to show one word that never changes. */
+  .lw-stage{position:relative;height:auto;min-height:60vh}
   .pstate{position:static;opacity:1!important;transform:none!important}
   .railstage{overflow:visible}
   .rail{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:2rem}
@@ -1391,7 +1400,10 @@ html .btn-wrapper-root.mag:active{transform:translate3d(var(--mx,0),var(--my,0),
 /* The section is tall and its stage is sticky, so the words scrub as the
    reader travels through it. Same pattern the peak and rail sections already
    use — no pinning, so nothing measures differently. */
-#silence{height:240vh;position:relative;text-align:center}
+/* 320, not 240: four evenly spaced word changes across a 220vh range is 55vh
+   a beat, matching #peak. See the note on #peak for why spacing is the thing
+   being matched rather than section height. */
+#silence{height:320vh;position:relative;text-align:center}
 .lw-stage{
   position:sticky;top:0;height:100svh;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -1434,7 +1446,7 @@ html .btn-wrapper-root.mag:active{transform:translate3d(var(--mx,0),var(--my,0),
 .lw-edge.is-4{top:auto;bottom:0;left:auto;right:0;border-top-width:0;border-left-width:0;border-bottom-width:3px;border-right-width:3px}
 
 @media (max-width:900px){
-  #silence{height:220vh}
+  #silence{height:295vh}
   .lw-lead{font-size:clamp(1.6rem,9vw,3rem)}
   .lw-mask{font-size:clamp(2.25rem,15vw,4.5rem)}
 }

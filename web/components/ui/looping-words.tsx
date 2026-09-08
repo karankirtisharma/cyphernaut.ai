@@ -81,6 +81,30 @@ export function LoopingWords({
       });
     };
 
+    /* Scroll-driven placement, used instead of show() while scrubbing.
+       show() floors progress to an index and then plays a 1.2s elastic tween,
+       which is time-based: the column sat still, jumped, overshot, and kept
+       bouncing after the reader stopped. Every other scroll effect on the page
+       is a pure function of scroll position, and this was the one that was not
+       — which is what made the sequence feel non-uniform.
+       Here the word holds for the first HOLD of its beat and then slides the
+       rest of the way, all of it locked to scroll. No tween, no overshoot, and
+       scrolling back up retraces the same path exactly. */
+    const HOLD = 0.6;
+    const beats = Math.max(1, words.length - 1);
+    let widths: number[] = [];
+    const place = (progress: number) => {
+      const raw = Math.min(progress, 1) * beats;
+      const i = Math.min(Math.floor(raw), beats - 1);
+      const f = raw - i;
+      const t = f <= HOLD ? 0 : (f - HOLD) / (1 - HOLD);
+      const eased = t * t * (3 - 2 * t); /* smoothstep */
+      gsap.set(list, { yPercent: -step * (i + eased) });
+      const a = widths[i] ?? 0;
+      const b = widths[Math.min(i + 1, words.length - 1)] ?? a;
+      gsap.set(selector, { width: Math.round(a + (b - a) * eased + pad * 2) });
+    };
+
     /* measure once fonts are settled, or the first bracket is sized to
        fallback metrics and visibly snaps when the real face lands */
     let st: ScrollTrigger | undefined;
@@ -97,6 +121,12 @@ export function LoopingWords({
       }
 
       gsap.registerPlugin(ScrollTrigger);
+      /* measured once, so the selector can interpolate its width across a
+         transition instead of tweening to it on its own clock */
+      widths = words.map(
+        (_, i) =>
+          (list.children[i] as HTMLElement).getBoundingClientRect().width,
+      );
       const el = (trigger && document.querySelector(trigger)) || root;
       st = ScrollTrigger.create({
         trigger: el,
@@ -105,11 +135,9 @@ export function LoopingWords({
         /* no pin: the stage is position:sticky in CSS, so ScrollTrigger only
            reads progress and never injects a pin-spacer that would shift every
            section measurement the home page's scroll film depends on */
-        onUpdate: (self) => {
-          const raw = self.progress * words.length;
-          show(Math.floor(Math.min(raw, words.length - 0.001)));
-        },
+        onUpdate: (self) => place(self.progress),
       });
+      place(st.progress);
     };
 
     let cancelled = false;
