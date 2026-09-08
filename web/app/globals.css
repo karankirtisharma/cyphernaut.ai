@@ -117,12 +117,15 @@ em.lime{font-style:normal}
   border-radius:clamp(28px,3.4vw,88px) clamp(28px,3.4vw,88px) 0 0;
   min-height:clamp(600px,80vh,900px);display:flex;align-items:stretch;
   padding:clamp(3.5rem,7vh,6rem) 0 clamp(1.75rem,3.5vh,2.75rem);
-  /* The plate is 2.362:1 and its limb sits 40% of the image height above the
-     bottom edge. Width-fitted and bottom-anchored, the horizon therefore always
-     lands 0.40 x (100vw / 2.362) = 16.9vw above the footer's bottom — so the
-     wordmark can be seated on it by arithmetic instead of by eye, and the two
-     stay locked together at every width. */
-  --fz-horizon:16.9vw;
+  /* The plate is 2.354:1 and its lit limb sits 75.6% of the image height above
+     the bottom edge — measured off the asset, not guessed. Width-fitted and
+     bottom-anchored, the horizon therefore always lands
+     0.756 x (100vw / 2.354) = 32.1vw above the footer's bottom, so the wordmark
+     can be seated on it by arithmetic and the two stay locked at every width.
+     The previous plate put its limb at 40%, i.e. 16.9vw; this globe is far
+     larger in frame, so the horizon rides much higher and the footer grows to
+     suit rather than cropping the earth. */
+  --fz-horizon:32.1vw;
   /* what already occupies the gap between the wordmark and the footer's bottom
      edge: the rail plus the bottom padding. The wordmark owes the remainder. */
   --fz-below:137px;
@@ -953,7 +956,7 @@ html .btn-wrapper-root.mag:active{transform:translate3d(var(--mx,0),var(--my,0),
   /* pushed to the bottom of the zone, then lifted so its baseline meets the
      horizon: the rail (~93px) and the bottom padding (~44px) already sit in
      that gap, so the wordmark only owes the remainder */
-  margin:auto 0 clamp(1.25rem,calc(var(--fz-horizon) - var(--fz-below)),12rem);
+  margin:auto 0 clamp(1.25rem,calc(var(--fz-horizon) - var(--fz-below)),46rem);
   font-family:var(--font-display);font-weight:800;
   /* Sized off the reference, where the wordmark spans ~62% of the frame rather
      than filling it — the breathing room on either side is what lets it read as
@@ -1003,11 +1006,12 @@ html .btn-wrapper-root.mag:active{transform:translate3d(var(--mx,0),var(--my,0),
   .fzone{min-height:0;padding-bottom:clamp(2rem,5vh,3rem)}
   /* The plate is a wide landscape crop. Width-fitted on a narrow column its
      horizon would sit only ~17vw up — far below the stacked rail — so it is
-     zoomed to 511%, which lifts the horizon above the stacked rail so the rail lands on
-     the dark disc rather than across the glow, and flattens the arc into
-     something that reads at phone width. 0.40 x (511vw / 2.362). */
-  .fzone-bg{background-size:511% auto}
-  .fzone{--fz-horizon:86.5vw;--fz-below:210px}
+     zoomed to 272%, which lifts the horizon above the stacked rail so the rail lands on the
+     dark disc rather than across the glow. The zoom is far gentler than the
+     old plate needed because this globe is already large in frame. */
+  .fzone-bg{background-size:272% auto}
+  /* 0.756 x (272vw / 2.354) */
+  .fzone{--fz-horizon:87.4vw;--fz-below:210px}
   .fz-cta{padding-left:0;border-left:0;padding-top:.5rem}
   .fz-bot{flex-direction:column;align-items:flex-start;gap:1.75rem}
   .fz-bot-r{text-align:left;align-items:flex-start}
