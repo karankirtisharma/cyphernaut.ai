@@ -16,53 +16,66 @@ export default function LaunchView() {
           </div>
         </section>
 
-        <section className="phase">
-          <div className="wrap g12 phase-g">
-            <div className="phase-art slot" data-rise>
-              <div className="haze"></div>
-              <div className="art">
-                <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-anticipation.webp")' }} />
-              </div>
+        {/* The three phases used to be three copies of one row, mirrored —
+            image one side, copy the other, three times. They are one continuous
+            launch trajectory now: a lime spine drawn by scroll, each phase
+            docked to a node on it, and Ignition given the crescendo instead of
+            an equal third of the page. */}
+        <section className="traj" data-traj>
+          <div className="wrap">
+            <div className="traj-line" aria-hidden="true">
+              <i className="traj-fill" />
             </div>
-            <div className="phase-copy">
-              <p className="lbl lime" data-rise>Pre-launch</p>
-              <h2 className="dl" data-rise style={{ '--d': '60ms' }}>Anticipation.</h2>
-              <p data-rise style={{ '--d': '120ms' }}>In-depth market research and audience analysis so the messaging resonates with potential investors. Targeted campaigns and community engagement build the anticipation.</p>
-            </div>
-          </div>
-        </section>
 
-        <section className="phase phase-alt lit">
-          <div className="wrap g12 phase-g">
-            <div className="phase-art slot" data-rise>
-              <div className="haze"></div>
-              <div className="art">
-                <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-ignition.webp")' }} />
+            <article className="leg" data-leg>
+              <span className="leg-num" aria-hidden="true">01</span>
+              <i className="leg-node" aria-hidden="true" />
+              <div className="leg-art slot" data-leg-art>
+                <div className="haze" />
+                <div className="art">
+                  <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-anticipation.webp")' }} />
+                </div>
               </div>
-            </div>
-            <div className="phase-copy">
-              <p className="lbl lime" data-rise>Launch day</p>
-              <h2 className="dxl lime" data-rise style={{ '--d': '60ms' }}>Ignition.</h2>
-              <div className="rule" data-rise style={{ '--d': '120ms' }}></div>
-              <p data-rise style={{ '--d': '180ms' }}>Live events, AMAs and social media blitzes, timed to land together, so launch day creates excitement and engagement.</p>
-            </div>
-          </div>
-        </section>
+              <div className="leg-copy">
+                <p className="lbl lime" data-leg-w>Pre-launch</p>
+                <h2 className="dl" data-leg-w>Anticipation.</h2>
+                <p data-leg-w>In-depth market research and audience analysis so the messaging resonates with potential investors. Targeted campaigns and community engagement build the anticipation.</p>
+              </div>
+            </article>
 
-        <section className="phase">
-          <div className="wrap g12 phase-g">
-            <div className="phase-art slot" data-rise>
-              <div className="haze"></div>
-              <div className="art">
-                <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-momentum.webp")' }} />
+            <article className="leg leg-peak lit" data-leg>
+              <span className="leg-num" aria-hidden="true">02</span>
+              <i className="leg-node" aria-hidden="true" />
+              <div className="leg-art slot" data-leg-art>
+                <div className="haze" />
+                <div className="art">
+                  <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-ignition.webp")' }} />
+                </div>
               </div>
-            </div>
-            <div className="phase-copy">
-              <p className="lbl lime" data-rise>Post-launch</p>
-              <h2 className="dl" data-rise style={{ '--d': '60ms' }}>Momentum.</h2>
-              <p data-rise style={{ '--d': '120ms' }}>Analytics-driven marketing, community engagement, influencer partnerships and ongoing content, so momentum holds after the launch.</p>
-              <a className="ghost" href="/services" data-rise style={{ '--d': '180ms' }}>The twelve services<span aria-hidden="true">&#8599;</span></a>
-            </div>
+              <div className="leg-copy">
+                <p className="lbl lime" data-leg-w>Launch day</p>
+                <h2 className="dxl lime" data-leg-w>Ignition.</h2>
+                <div className="rule" data-leg-w />
+                <p data-leg-w>Live events, AMAs and social media blitzes, timed to land together, so launch day creates excitement and engagement.</p>
+              </div>
+            </article>
+
+            <article className="leg" data-leg>
+              <span className="leg-num" aria-hidden="true">03</span>
+              <i className="leg-node" aria-hidden="true" />
+              <div className="leg-art slot" data-leg-art>
+                <div className="haze" />
+                <div className="art">
+                  <span className="phase-shot" data-par="7" style={{ backgroundImage: 'url("/assets/peak-momentum.webp")' }} />
+                </div>
+              </div>
+              <div className="leg-copy">
+                <p className="lbl lime" data-leg-w>Post-launch</p>
+                <h2 className="dl" data-leg-w>Momentum.</h2>
+                <p data-leg-w>Analytics-driven marketing, community engagement, influencer partnerships and ongoing content, so momentum holds after the launch.</p>
+                <a className="ghost" href="/services" data-leg-w>The twelve services<span aria-hidden="true">&#8599;</span></a>
+              </div>
+            </article>
           </div>
         </section>
 

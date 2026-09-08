@@ -742,6 +742,96 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
   background-position:center;background-size:contain;
 }
 .phase-copy p:not(.lbl){color:var(--ink-soft);max-width:46ch}
+
+/* ---------- Launch trajectory ---------- */
+/* One spine down the page with the three phases docked to it. The old .phase
+   rows survive only for .phase-shot, which sizes the illustration. */
+.traj{position:relative;z-index:2;padding:clamp(3rem,7vw,6rem) 0 clamp(4rem,9vw,8rem)}
+.traj .wrap{position:relative}
+/* the spine sits in the gutter between the number and the content */
+.traj-line{
+  position:absolute;left:calc(var(--gut) * -0.25);top:0;bottom:0;width:1px;
+  background:var(--hair);
+}
+.traj-fill{
+  position:absolute;inset:0;background:linear-gradient(to bottom,var(--accent),rgba(191,255,0,.35));
+  transform:scaleY(var(--traj,0));transform-origin:50% 0;
+}
+/* the glow that rides the head of the drawn line */
+.traj-fill::after{
+  content:"";position:absolute;left:50%;bottom:0;width:9px;height:9px;
+  transform:translate(-50%,50%);border-radius:50%;background:var(--accent);
+  box-shadow:0 0 18px 4px rgba(191,255,0,.55);opacity:var(--traj-head,0);
+}
+
+.leg{
+  position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2rem,5vw,4.5rem);align-items:center;
+  padding:clamp(3.5rem,8vw,7rem) 0;border-top:1px solid var(--hair);
+}
+.leg:first-of-type{border-top:0}
+/* alternation is the number's job, not the layout's: the art stays on the
+   spine side throughout so the trajectory reads as one line, and the crescendo
+   comes from Ignition's scale instead of from mirroring the row */
+.leg-art{min-height:clamp(240px,26vw,400px)}
+.leg-copy{display:flex;flex-direction:column;gap:1.25rem;align-items:flex-start}
+.leg-copy p:not(.lbl){color:var(--ink-soft);max-width:46ch}
+
+.leg-num{
+  /* -1.25, not -0.25: the spine is positioned against .wrap, but this sits
+     inside .leg, which .wrap's own gutter has already pushed in by --gut. */
+  position:absolute;left:calc(var(--gut) * -1.25);top:clamp(2.5rem,6vw,5rem);
+  transform:translateX(-100%) translateX(-.9rem);
+  font-family:var(--font-display);font-weight:800;letter-spacing:-.04em;
+  font-size:clamp(2.5rem,5vw,4.5rem);line-height:1;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.16);
+  pointer-events:none;
+}
+.leg-node{
+  position:absolute;left:calc(var(--gut) * -1.25);top:clamp(3rem,6.5vw,5.5rem);
+  width:11px;height:11px;margin-left:-5px;border-radius:50%;
+  background:var(--canvas);border:1px solid var(--edge);
+  transform:scale(.9);
+}
+/* lit as the spine reaches it — no scale(0) anywhere, the node is a real dot
+   on the line before it ignites */
+.leg[data-lit] .leg-node{
+  background:var(--accent);border-color:var(--accent);transform:scale(1);
+  box-shadow:0 0 16px 3px rgba(191,255,0,.45);
+}
+.leg[data-lit] .leg-num{-webkit-text-stroke-color:rgba(191,255,0,.55)}
+.leg-node,.leg-num{
+  transition:transform .22s var(--ease-out),background-color .22s var(--ease-out),
+             border-color .22s var(--ease-out),box-shadow .22s var(--ease-out),
+             -webkit-text-stroke-color .3s var(--ease-out);
+}
+
+/* Ignition is the crescendo: wider art, lit ground, and it keeps the full
+   -0.03em display scale from .dxl */
+.leg-peak{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
+.leg-peak .leg-art{min-height:clamp(300px,34vw,520px)}
+.leg-peak.lit{background:var(--canvas-lit);border-radius:var(--r-3)}
+
+/* entrance: the plate wipes up from the spine, contents follow.
+   html[data-cn] only, so with no JS the section is simply visible. */
+html[data-cn] .traj-fx [data-leg-art]{clip-path:inset(0 0 100% 0 round 24px)}
+html[data-cn] .traj-fx [data-leg-w]{opacity:0}
+
+@media (max-width:1024px){
+  .leg,.leg-peak{grid-template-columns:1fr;gap:2rem}
+  .leg-art{order:1}
+  .leg-copy{order:2}
+  .traj-line{left:0}
+  .leg-node{left:calc(var(--gut) * -1)}
+  .leg-num{left:calc(var(--gut) * -1);transform:translateX(1rem);top:clamp(2rem,5vw,3rem)}
+  .leg{padding-left:2.25rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .traj-fill{transform:scaleY(1)}
+  .traj-fill::after{opacity:0}
+  html[data-cn] .traj-fx [data-leg-art]{clip-path:none}
+  html[data-cn] .traj-fx [data-leg-w]{opacity:1}
+}
 .lit{background:var(--canvas-lit)}
 .rule{width:100%;height:1px;background:linear-gradient(to right,var(--accent),rgba(191,255,0,0));opacity:.6}
 @media (max-width:1024px){

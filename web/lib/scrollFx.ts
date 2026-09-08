@@ -164,6 +164,88 @@ function pillarReveals() {
   });
 }
 
+/** The launch trajectory: one spine drawn by scroll, three plates docked to it.
+ *
+ *  Two kinds of motion here, deliberately kept apart. The spine is a progress
+ *  indicator, so it is a pure function of scroll — scrub: true, the same as
+ *  every other scrubbed effect on the site, and it retraces exactly on the way
+ *  back up. The plates are entrances, so they fire once on arrival with a real
+ *  ease-out; an entrance tied to scroll position would replay every time the
+ *  reader nudged the wheel. */
+function trajectory() {
+  const root = $<HTMLElement>("[data-traj]");
+  const line = $<HTMLElement>(".traj-fill");
+  if (!root || !line) return;
+
+  const legs = $$<HTMLElement>("[data-leg]", root);
+  root.classList.add("traj-fx");
+
+  /* the head glow fades in over the first slice rather than popping on at 0 */
+  ScrollTrigger.create({
+    trigger: root,
+    start: "top 72%",
+    end: "bottom 62%",
+    scrub: true,
+    onUpdate: (self) => {
+      line.style.setProperty("--traj", self.progress.toFixed(4));
+      line.style.setProperty(
+        "--traj-head",
+        Math.min(1, self.progress * 12).toFixed(3),
+      );
+    },
+  });
+
+  legs.forEach((leg) => {
+    /* the node lights when the drawn line actually reaches it, which is a
+       different point per leg — hence a trigger each rather than one threshold */
+    ScrollTrigger.create({
+      trigger: leg,
+      start: "top 62%",
+      onEnter: () => leg.setAttribute("data-lit", ""),
+      onLeaveBack: () => leg.removeAttribute("data-lit"),
+    });
+
+    const art = $<HTMLElement>("[data-leg-art]", leg);
+    const words = $$<HTMLElement>("[data-leg-w]", leg);
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: leg, start: "top 74%", once: true },
+    });
+
+    if (art) {
+      /* clip-path, not transform: .slot children are absolutely positioned and
+         a transform here would fight the [data-par] parallax on the shot */
+      tl.fromTo(
+        art,
+        { clipPath: "inset(0% 0% 100% 0% round 24px)" },
+        {
+          clipPath: "inset(0% 0% 0% 0% round 24px)",
+          duration: 0.85,
+          ease: "expo.out",
+          /* left in place it would keep clipping the plate's inset highlight */
+          onComplete: () => gsap.set(art, { clearProps: "clipPath" }),
+        },
+      );
+    }
+    if (words.length) {
+      tl.fromTo(
+        words,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "expo.out",
+          stagger: 0.06,
+          /* no clearProps: the initial opacity:0 lives in the stylesheet so
+             there is no flash before JS runs, which means clearing the inline
+             opacity:1 would hand the element straight back to that rule */
+        },
+        0.16,
+      );
+    }
+  });
+}
+
 export function initScrollFx(signal: AbortSignal) {
   if (prefersReducedMotion()) return;
   if (!registered) {
@@ -263,6 +345,7 @@ export function initScrollFx(signal: AbortSignal) {
     });
 
     pillarReveals();
+    trajectory();
   });
 
   /* late-loading images change every trigger's geometry */
