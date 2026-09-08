@@ -1,7 +1,7 @@
 "use client";
 
 import HeroScene from "@/components/hero/HeroScene";
-import JoystickScene from "@/components/hero/JoystickScene";
+import { LoopingWords } from "@/components/ui/looping-words";
 import { GradientButton } from "@/components/ui/shader-button";
 import { useHomeMotion } from "@/lib/motion";
 
@@ -246,11 +246,17 @@ export default function HomeView() {
         </section>
 
         <section className="act" id="silence" data-act="4">
-          <JoystickScene className="qstage" />
-          <p className="qline soft" data-silence>Then you launch.</p>
-          <p className="qhint">
-            PULL TO CONTINUE <i aria-hidden="true">&#8595;</i>
-          </p>
+          {/* sticky in CSS, not pinned by ScrollTrigger — a pin-spacer would
+              shift every section box the scroll film measures */}
+          <div className="lw-stage">
+            <p className="lw-lead" data-silence>
+              Then you
+            </p>
+            <LoopingWords
+              words={["launch.", "ship.", "scale.", "compound.", "last."]}
+              trigger="#silence"
+            />
+          </div>
         </section>
 
         <section className="act" id="peak" data-act="5">

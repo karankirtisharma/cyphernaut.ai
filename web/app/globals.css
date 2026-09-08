@@ -445,11 +445,6 @@ html{scrollbar-color:rgba(191,255,0,.34) transparent;scrollbar-width:thin}
 /* the dot replaces the pointer, so the native one goes — only while the
    emitter is actually mounted, which is fine-pointer and motion-allowed only */
 html.has-emitter,html.has-emitter *{cursor:none!important}
-/* ...except the switch, whose grab/grabbing shapes are the only affordance
-   telling the reader it can be dragged. The dot rides above them. */
-html.has-emitter .qstage{cursor:grab!important}
-html.has-emitter .qstage[data-dragging],
-html.has-emitter .qstage[data-dragging] *{cursor:grabbing!important}
 @media (prefers-reduced-motion:reduce){
   .cursor-emitter{display:none}
 }
@@ -564,7 +559,6 @@ h1,h2,h3{margin:0;font-family:var(--font-display);text-wrap:balance}
    being cut. */
 .detail{min-height:5.1em;font-size:.9375rem;line-height:1.55;color:var(--ink-soft);transition:opacity .16s var(--ease-out)}
 .feat .detail{color:rgba(10,12,8,.78)}
-#silence{height:100svh;position:relative;text-align:center}
 
 #peak{height:340vh}
 .peakstage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
@@ -651,8 +645,6 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
   .peakcopy{min-height:15rem;width:100%}
   .olist{grid-template-columns:1fr}
   .oitem:nth-child(2){border-top:1px solid var(--hair)}
-  .qstage{width:92vw;height:min(62vh,92vw)}
-  .qhint{right:auto;left:50%;transform:translateX(-50%);bottom:clamp(1.5rem,5vh,3rem);top:auto}
   .railhead{width:76vw}
   .railnote{width:64vw}
   #contact{height:auto;min-height:110vh}
@@ -1375,55 +1367,57 @@ html .btn-wrapper-root.mag:active{transform:translate3d(var(--mx,0),var(--my,0),
   .pshot{transition:none}
 }
 
-/* ---------- silence: the launch switch ---------- */
-.qstage{
-  position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);
-  /* No px cap. Capped at 860x680 the switch shrank to a chip on a 2K or 4K
-     screen while the section around it kept growing; sized against the
-     viewport it holds the same share of the frame at every resolution. The
-     camera fits the model to whichever axis is tighter, so both are bounded. */
-  width:min(84vw,128vh);height:min(78vh,84vw);z-index:1;
-  cursor:grab;opacity:0;transition:opacity .7s var(--ease-out);
-  /* the lever owns vertical gestures here; without this the page scrolls
-     under the finger instead of the stick moving */
-  touch-action:none;
+/* ---------- silence: then you ______ ---------- */
+/* The section is tall and its stage is sticky, so the words scrub as the
+   reader travels through it. Same pattern the peak and rail sections already
+   use — no pinning, so nothing measures differently. */
+#silence{height:240vh;position:relative;text-align:center}
+.lw-stage{
+  position:sticky;top:0;height:100svh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(.5rem,1.4vw,1.25rem);overflow:hidden;
 }
-.qstage:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:12px}
-/* the switch is holding the page — say so, and answer a blocked scroll */
-.qstage[data-locked] ~ .qhint{color:var(--accent)}
-.qstage[data-nudge] ~ .qhint{animation:qnudge .42s var(--ease-out)}
-@keyframes qnudge{
-  0%,100%{transform:translateY(-50%)}
-  35%{transform:translateY(calc(-50% + 7px))}
+.lw-lead{
+  margin:0;font-family:var(--font-display);font-weight:900;text-transform:uppercase;
+  font-size:clamp(2rem,7vw,6rem);line-height:.9;letter-spacing:-.03em;
+  color:var(--ink-soft);
 }
-.qstage[data-loaded]{opacity:1}
-.qstage[data-dragging]{cursor:grabbing}
-/* lifted clear of the switch instead of sharing its centre */
-#silence .qline{position:absolute;left:50%;top:20%;transform:translateX(-50%);z-index:2;margin:0}
-.qhint{
-  position:absolute;right:var(--gut);top:50%;transform:translateY(-50%);
-  z-index:2;margin:0;text-align:right;
-  font-family:var(--font-mono);font-size:.6875rem;font-weight:500;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute);
-  transition:color .3s var(--ease-out),opacity .3s var(--ease-out);
+.lw{position:relative;display:flex;justify-content:center;padding:clamp(.5rem,1.4vw,1.1rem)}
+/* one word tall, so the column reads as a slot rather than a list */
+.lw-mask{
+  height:1em;overflow:hidden;
+  font-family:var(--font-display);font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.75rem,11vw,9.5rem);line-height:1;letter-spacing:-.045em;
 }
-.qhint i{
-  font-style:normal;display:inline-block;margin-left:.5em;
-  /* the arrow tracks the lever's own throw rather than looping on its own */
-  transform:translateY(calc(var(--throw,0) * 10px));
-  color:var(--accent);
+/* align-items:center, not the default stretch. Stretched items all measure the
+   width of the widest word, so the bracket that is supposed to measure itself
+   to each word got the same number every time and never moved. */
+.lw-list{display:flex;flex-direction:column;align-items:center;margin:0;padding:0;list-style:none;will-change:transform}
+.lw-item{height:1em;line-height:1;color:var(--accent);white-space:nowrap}
+
+/* the bracket that measures itself to the word — the whole point of the piece */
+.lw-selector{
+  position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);
+  width:0;pointer-events:none;
 }
-.qstage[data-loaded] ~ .qhint{color:var(--ink-soft)}
-.qstage[data-committed] ~ .qhint{opacity:0}
-@media (max-width:860px){
-  #silence{height:100svh}
-  .qhint{right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:clamp(1.5rem,5vh,3rem)}
-  .qstage[data-nudge] ~ .qhint{animation:qnudge-m .42s var(--ease-out)}
-  @keyframes qnudge-m{
-    0%,100%{transform:translateX(-50%)}
-    35%{transform:translateX(-50%) translateY(7px)}
-  }
+.lw-edge{
+  position:absolute;width:clamp(18px,2vw,34px);height:clamp(18px,2vw,34px);
+  border:0 solid var(--accent);
+}
+/* left/top must be reset explicitly on the right- and bottom-hand corners:
+   the base rule sets left:0 / top:0, and left wins over right when both are
+   set on a fixed-width box, so without this all four brackets stack in the
+   top-left and read as one small square. */
+.lw-edge{top:0;left:0;border-top-width:3px;border-left-width:3px}
+.lw-edge.is-2{top:0;left:auto;right:0;border-top-width:3px;border-left-width:0;border-right-width:3px}
+.lw-edge.is-3{top:auto;bottom:0;left:0;border-top-width:0;border-bottom-width:3px;border-left-width:3px}
+.lw-edge.is-4{top:auto;bottom:0;left:auto;right:0;border-top-width:0;border-left-width:0;border-bottom-width:3px;border-right-width:3px}
+
+@media (max-width:900px){
+  #silence{height:220vh}
+  .lw-lead{font-size:clamp(1.6rem,9vw,3rem)}
+  .lw-mask{font-size:clamp(2.25rem,15vw,4.5rem)}
 }
 @media (prefers-reduced-motion: reduce){
-  .qhint i{transform:none}
+  .lw-list{will-change:auto}
 }

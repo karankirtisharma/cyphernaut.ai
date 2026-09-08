@@ -18,7 +18,7 @@ const MAX_SQUEEZE = 0.6;
 const ACCELERATOR = 1000;
 
 const HOT_SELECTOR =
-  'a[href],button,[role="button"],summary,label,input,select,textarea,.qstage';
+  'a[href],button,[role="button"],summary,label,input,select,textarea';
 
 export default function CursorEmitter() {
   useEffect(() => {

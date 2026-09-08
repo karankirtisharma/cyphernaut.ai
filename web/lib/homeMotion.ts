@@ -344,10 +344,13 @@ export function useHomeMotion() {
 
       /* silence */
       if (!rm) {
+        /* The lead reads for the whole section now that the words scrub
+           through it — the old window faded it out over the middle, which was
+           right for a single static line and wrong for a running headline. */
         const sp = prog(silence);
         sLine.style.opacity = (
-          inv(0.15, 0.3, sp) *
-          (1 - inv(0.8, 1, sp))
+          inv(0.02, 0.1, sp) *
+          (1 - inv(0.94, 1, sp))
         ).toFixed(3);
       }
 
