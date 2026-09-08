@@ -4,12 +4,12 @@ import ServicesView from "./view";
 
 export const metadata: Metadata = {
   title: "Services | Cyphernaut",
-  description: "Fifteen services, five pillars, one team: build, launch, amplify, community, reach and trust for AI and Web3 projects.",
+  description: "Fifteen services, five pillars, one team: launch, build, amplify, community, reach and trust for AI and Web3 projects.",
   alternates: { canonical: "/services" },
   openGraph: {
     ...OG_BASE,
     title: "Services | Cyphernaut",
-    description: "Fifteen services, five pillars, one team: build, launch, amplify, community, reach and trust for AI and Web3 projects.",
+    description: "Fifteen services, five pillars, one team: launch, build, amplify, community, reach and trust for AI and Web3 projects.",
     url: "/services",
   },
 };

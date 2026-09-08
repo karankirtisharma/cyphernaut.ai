@@ -169,6 +169,30 @@ export default function HomeView() {
 
               <div className="shell b2" data-wipe data-card style={{ '--d': '90ms' }}>
                 <div className="core">
+                  <div className="pname"><h3 className="dm">BUILD</h3></div>
+                  <p className="soft" style={{ maxWidth: '34ch' }}>Production systems, owned end to end and built to scale.</p>
+                  <div className="rows">
+                    <button className="srow" type="button" aria-expanded="false">
+                      <span className="srow-n">AI &amp; LLM Product Development</span>
+                      <span className="vh" data-desc>Assistants, copilots, retrieval and agent workflows built on your own data, taken past the demo into production with evaluation, guardrails and monitoring in place.</span>
+                      <span className="plus" aria-hidden="true"></span>
+                    </button>
+                    <button className="srow" type="button" aria-expanded="false">
+                      <span className="srow-n">ERP, CRM &amp; Workflow Automation</span>
+                      <span className="vh" data-desc>ERP and CRM rollouts, integrations across the tools already in use, and automations that run unattended: migrated, documented and handed over without downtime.</span>
+                      <span className="plus" aria-hidden="true"></span>
+                    </button>
+                    <button className="srow" type="button" aria-expanded="false">
+                      <span className="srow-n">Full-Stack Web &amp; Platform Engineering</span>
+                      <span className="vh" data-desc>Sites, dashboards, dApps and internal platforms owned end to end, from the first wireframe to production, and built to hold as traffic and headcount grow.</span>
+                      <span className="plus" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <p className="detail" data-detail data-default="Production systems, owned end to end and built to scale.">Production systems, owned end to end and built to scale.</p>
+                </div>
+              </div>
+              <div className="shell b3" data-wipe data-card style={{ '--d': '180ms' }}>
+                <div className="core">
                   <div className="pname"><h3 className="dm">AMPLIFY</h3></div>
                   <p className="soft" style={{ maxWidth: '34ch' }}>The message, on every platform that matters.</p>
                   <div className="rows">
@@ -192,7 +216,7 @@ export default function HomeView() {
                 </div>
               </div>
 
-              <div className="shell b3" data-wipe data-card style={{ '--d': '180ms' }}>
+              <div className="shell b4" data-wipe data-card style={{ '--d': '270ms' }}>
                 <div className="core">
                   <div className="pname"><h3 className="dm">COMMUNITY</h3></div>
                   <p className="soft" style={{ maxWidth: '30ch' }}>The people around the project, kept close.</p>
@@ -217,7 +241,7 @@ export default function HomeView() {
                 </div>
               </div>
 
-              <div className="shell b4" data-wipe data-card style={{ '--d': '270ms' }}>
+              <div className="shell b5" data-wipe data-card style={{ '--d': '360ms' }}>
                 <div className="core">
                   <div className="pname"><h3 className="dm">REACH &amp; TRUST</h3></div>
                   <p className="soft" style={{ maxWidth: '30ch' }}>The voices, partners and press that make it credible.</p>
@@ -242,30 +266,6 @@ export default function HomeView() {
                 </div>
               </div>
 
-              <div className="shell b5" data-wipe data-card style={{ '--d': '360ms' }}>
-                <div className="core">
-                  <div className="pname"><h3 className="dm">BUILD</h3></div>
-                  <p className="soft" style={{ maxWidth: '34ch' }}>Production systems, owned end to end and built to scale.</p>
-                  <div className="rows">
-                    <button className="srow" type="button" aria-expanded="false">
-                      <span className="srow-n">AI &amp; LLM Product Development</span>
-                      <span className="vh" data-desc>Assistants, copilots, retrieval and agent workflows built on your own data, taken past the demo into production with evaluation, guardrails and monitoring in place.</span>
-                      <span className="plus" aria-hidden="true"></span>
-                    </button>
-                    <button className="srow" type="button" aria-expanded="false">
-                      <span className="srow-n">ERP, CRM &amp; Workflow Automation</span>
-                      <span className="vh" data-desc>ERP and CRM rollouts, integrations across the tools already in use, and automations that run unattended: migrated, documented and handed over without downtime.</span>
-                      <span className="plus" aria-hidden="true"></span>
-                    </button>
-                    <button className="srow" type="button" aria-expanded="false">
-                      <span className="srow-n">Full-Stack Web &amp; Platform Engineering</span>
-                      <span className="vh" data-desc>Sites, dashboards, dApps and internal platforms owned end to end, from the first wireframe to production, and built to hold as traffic and headcount grow.</span>
-                      <span className="plus" aria-hidden="true"></span>
-                    </button>
-                  </div>
-                  <p className="detail" data-detail data-default="Production systems, owned end to end and built to scale.">Production systems, owned end to end and built to scale.</p>
-                </div>
-              </div>
             </div>
           </div>
         </section>
