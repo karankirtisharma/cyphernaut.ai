@@ -12,8 +12,8 @@ export default function ServicesView() {
           <div className="wrap g12 hero-g">
             <div className="hero-copy">
               <p className="lbl crumb" data-rise>Services</p>
-              <h1 className="dxl" data-rise style={{ '--d': '60ms', maxWidth: '16ch' }}>Everything a launch needs.</h1>
-              <p className="meas soft" data-rise style={{ '--d': '120ms' }}>Twelve services, four pillars, one team. Every engagement is end to end, from the first announcement to the growth that follows.</p>
+              <h1 className="dxl" data-rise style={{ '--d': '60ms', maxWidth: '16ch' }}>Everything a project needs.</h1>
+              <p className="meas soft" data-rise style={{ '--d': '120ms' }}>Fifteen services, five pillars, one team. Every engagement is end to end, from the first announcement to the growth that follows.</p>
             </div>
             <div className="hero-art slot" data-rise style={{ '--d': '180ms' }}>
               <div className="haze"></div>
@@ -119,6 +119,27 @@ export default function ServicesView() {
                 <article className="svc" data-rise style={{ '--d': '120ms' }}>
                   <h4 className="ds">Reputation Management &amp; PR</h4>
                   <p>Strategic PR campaigns, crisis management and positive coverage in AI, crypto and mainstream outlets.</p>
+                </article>
+              </div>
+            </div>
+
+            <div className="pillar g12" id="build">
+              <div className="pillar-head">
+                <h2 className="dl" data-rise style={{ maxWidth: '12ch' }}>Build</h2>
+                <p className="soft" data-rise style={{ '--d': '60ms', maxWidth: '30ch' }}>The product itself, engineered and shipped.</p>
+              </div>
+              <div className="pillar-body">
+                <article className="svc" data-rise>
+                  <h4 className="ds">AI &amp; LLM Product Development</h4>
+                  <p>Assistants, copilots, retrieval and agent workflows built on your own data and integrated into a working product rather than left in a demo.</p>
+                </article>
+                <article className="svc" data-rise style={{ '--d': '60ms' }}>
+                  <h4 className="ds">ERP, CRM &amp; Workflow Automation</h4>
+                  <p>ERP and CRM implementation, integrations between the tools already in use, and automations that take the repetitive work off the team.</p>
+                </article>
+                <article className="svc" data-rise style={{ '--d': '120ms' }}>
+                  <h4 className="ds">Full-Stack Web &amp; Platform Engineering</h4>
+                  <p>Sites, dashboards, dApps and internal platforms, designed and shipped end to end, from the first wireframe to production.</p>
                 </article>
               </div>
             </div>

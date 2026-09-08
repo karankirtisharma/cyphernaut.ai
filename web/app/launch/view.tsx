@@ -70,7 +70,7 @@ export default function LaunchView() {
                 <p className="lbl lime" data-leg-w>Post-launch</p>
                 <h2 className="dl" data-leg-w>Momentum.</h2>
                 <p data-leg-w>Analytics-driven marketing, community engagement, influencer partnerships and ongoing content, so momentum holds after the launch.</p>
-                <a className="ghost" href="/services" data-leg-w>The twelve services<span aria-hidden="true">&#8599;</span></a>
+                <a className="ghost" href="/services" data-leg-w>The fifteen services<span aria-hidden="true">&#8599;</span></a>
               </div>
             </article>
           </div>

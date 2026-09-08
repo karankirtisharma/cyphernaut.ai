@@ -546,6 +546,10 @@ h1,h2,h3{margin:0;font-family:var(--font-display);text-wrap:balance}
 .b2{grid-column:7/13;grid-row:1/2}
 .b3{grid-column:7/10;grid-row:2/3}
 .b4{grid-column:10/13;grid-row:2/3}
+/* Build is the fifth pillar and the only one that is not marketing, so it gets
+   its own full-width row under the four rather than being squeezed in beside
+   them. grid-auto-rows already allows the third row. */
+.b5{grid-column:1/13;grid-row:3/4}
 .feat .core>*{position:relative}
 .feat .core>p:first-of-type{font-size:1.125rem}
 /* The concentric-ring pattern this used to draw is replaced by the tesseract.
@@ -645,7 +649,7 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
   #about .hd{grid-column:1/13}
   #about .bd{grid-column:1/13}
   .b1{grid-column:1/13;grid-row:auto}
-  .b2,.b3,.b4{grid-column:1/13;grid-row:auto}
+  .b2,.b3,.b4,.b5{grid-column:1/13;grid-row:auto}
   .peakcoin{grid-column:1/6}
   .peakcopy{grid-column:6/13}
 }

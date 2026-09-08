@@ -134,10 +134,10 @@ export default function HomeView() {
         <section className="act" id="services" data-act="3">
           <div className="gridbg"></div>
           <div className="wrap">
-            <h2 className="dl" data-rise style={{ maxWidth: '20ch' }}>Everything a launch needs.</h2>
+            <h2 className="dl" data-rise style={{ maxWidth: '20ch' }}>Everything a project needs.</h2>
             <div className="svc-head" data-rise style={{ '--d': '70ms' }}>
-              <p className="soft">Twelve services, four pillars, one team.</p>
-              <a className="ghost" href="/services">All twelve services<span aria-hidden="true">&#8599;</span></a>
+              <p className="soft">Fifteen services, five pillars, one team.</p>
+              <a className="ghost" href="/services">All fifteen services<span aria-hidden="true">&#8599;</span></a>
             </div>
 
             <div className="bento">
@@ -239,6 +239,31 @@ export default function HomeView() {
                     </button>
                   </div>
                   <p className="detail" data-detail data-default="The voices, partners and press that make it credible.">The voices, partners and press that make it credible.</p>
+                </div>
+              </div>
+
+              <div className="shell b5" data-wipe data-card style={{ '--d': '360ms' }}>
+                <div className="core">
+                  <div className="pname"><h3 className="dm">BUILD</h3></div>
+                  <p className="soft" style={{ maxWidth: '34ch' }}>The product itself, engineered and shipped.</p>
+                  <div className="rows">
+                    <button className="srow" type="button" aria-expanded="false">
+                      <span className="srow-n">AI &amp; LLM Product Development</span>
+                      <span className="vh" data-desc>Assistants, copilots, retrieval and agent workflows built on your own data and integrated into a working product rather than left in a demo.</span>
+                      <span className="plus" aria-hidden="true"></span>
+                    </button>
+                    <button className="srow" type="button" aria-expanded="false">
+                      <span className="srow-n">ERP, CRM &amp; Workflow Automation</span>
+                      <span className="vh" data-desc>ERP and CRM implementation, integrations between the tools already in use, and automations that take the repetitive work off the team.</span>
+                      <span className="plus" aria-hidden="true"></span>
+                    </button>
+                    <button className="srow" type="button" aria-expanded="false">
+                      <span className="srow-n">Full-Stack Web &amp; Platform Engineering</span>
+                      <span className="vh" data-desc>Sites, dashboards, dApps and internal platforms, designed and shipped end to end, from the first wireframe to production.</span>
+                      <span className="plus" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <p className="detail" data-detail data-default="The product itself, engineered and shipped.">The product itself, engineered and shipped.</p>
                 </div>
               </div>
             </div>
