@@ -1362,6 +1362,11 @@ html .btn-wrapper-root.mag:active{transform:translate3d(var(--mx,0),var(--my,0),
 }
 @media (max-width:860px){
   .peakshots{width:min(100%,420px)}
+  /* The -20% left shift exists to clear the "Momentum." heading in the
+     right-hand column. Mobile stacks the plate above the copy, so there is no
+     heading to clear and the offset just pushes the astronaut off the left
+     edge. Centred here, with the same bleed on both sides. */
+  .pshot-2{inset:6% -8%}
 }
 @media (prefers-reduced-motion: reduce){
   .pshot{transition:none}
