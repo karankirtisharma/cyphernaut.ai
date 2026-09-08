@@ -15,7 +15,6 @@ export default function BookView() {
             <h1 className="dxl" style={{ maxWidth: '18ch' }}>Ready when you are.</h1>
             <p>A 30-minute call about the project: what it is, where it is, and what a launch would take.</p>
             <div className="ringwrap">
-              <svg className="ring" viewBox="0 0 260 260" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="130" cy="130" r="120"></circle></svg>
               <GradientButton href="https://calendly.com/official-cyphernaut/30min" size="lg" id="magnet" target="_blank" rel="noopener">Book a call</GradientButton>
             </div>
           </div>

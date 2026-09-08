@@ -864,9 +864,6 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
 .stage-in{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:1.75rem;padding:0 var(--gut)}
 .stage-in p{max-width:46ch;color:var(--ink-soft)}
 .ringwrap{position:relative;display:grid;place-items:center;margin:1rem 0}
-.ring{position:absolute;width:clamp(260px,34vw,360px);aspect-ratio:1/1;pointer-events:none}
-.ring circle{fill:none;stroke:var(--accent);stroke-width:1;opacity:.8;stroke-dasharray:754;stroke-dashoffset:754;animation:draw 1.6s var(--ease-out) .35s both}
-@keyframes draw{to{stroke-dashoffset:0}}
 .covers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:clamp(2rem,4vw,3rem)}
 .cover{border-top:1px solid var(--hair);padding:clamp(1.5rem,2.4vw,2rem) 0;display:flex;flex-direction:column;gap:.75rem;text-align:left}
 .cover .k{color:var(--accent)}
@@ -880,10 +877,8 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
 @media (max-width:860px){
   .stage{min-height:0;padding:calc(64px + 2.5rem) 0 3rem}
   .covers{grid-template-columns:1fr}
-  .ring{width:min(78vw,300px)}
 }
 @media (prefers-reduced-motion:reduce){
-  .ring circle{animation:none;stroke-dashoffset:0}
   #spot{display:none}
 }
 
