@@ -1,0 +1,16 @@
+# Dependencies / build output (web/.gitignore covers the app's own)
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tripo source for the launch switch: 64 MB, and the build does not read it.
+# scripts/build-joystick.mjs derives web/public/models/joystick-{base,lever}.glb
+# from it, and those compressed parts (1.97 MB total) are committed. Keeping a
+# 64 MB blob in history is effectively permanent — add it via Git LFS if the
+# original needs to be tracked.
+futuristic joystick 3d model.glb
