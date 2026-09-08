@@ -1027,7 +1027,14 @@ html .btn-wrapper-root.mag:active{transform:translate3d(var(--mx,0),var(--my,0),
    Hero — rebuilt from the supplied reference
    ============================================================== */
 #home.hero{height:auto;min-height:100svh;display:flex;align-items:stretch;padding:0}
-.hero .herostage{position:relative;width:100%;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+/* height:auto is load-bearing. The original sticky hero left
+   `.herostage{height:100vh}` on line ~519, and this rule replaced its position,
+   min-height, display and overflow but not its height — so the stage stayed
+   locked at one viewport while overflow:hidden clipped anything past it. On
+   desktop the content fits and it never showed; on mobile the stacked column
+   runs ~1163px, so the bottom of the astronaut, the stats row and the whole
+   foot rail were being cut off. */
+.hero .herostage{position:relative;width:100%;height:auto;min-height:100svh;display:flex;align-items:center;overflow:hidden}
 .hero .heroinner{position:relative;z-index:3;width:100%;padding:calc(64px + clamp(2rem,6vh,5rem)) 0 clamp(9rem,16vh,12rem)}
 .hero .herocopy{max-width:min(42%,580px);display:flex;flex-direction:column;align-items:flex-start;gap:0}
 
