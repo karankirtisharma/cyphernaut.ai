@@ -368,10 +368,10 @@ export default function HomeView() {
                 <GradientButton href="/book-a-call" size="lg" id="magnet">Book a call</GradientButton>
               </div>
               <div className="channels lbl">
-                <a href="mailto:official@cyphernaut.in">official@cyphernaut.in</a>
+                <a href="mailto:official@cyphernaut.ai">official@cyphernaut.ai</a>
                 <a href="https://wa.me/918655100003" target="_blank" rel="noopener">WhatsApp</a>
                 <a href="tel:+918655100003">+91 86551 00003</a>
-                <a href="https://www.instagram.com/cyphernaut.in/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.instagram.com/cyphernaut.ai/" target="_blank" rel="noopener">Instagram</a>
                 <a href="https://www.linkedin.com/company/cyphernaut/" target="_blank" rel="noopener">LinkedIn</a>
               </div>
             </div>

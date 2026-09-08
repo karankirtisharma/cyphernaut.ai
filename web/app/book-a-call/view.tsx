@@ -46,9 +46,9 @@ export default function BookView() {
             <h2 className="dl" data-rise style={{ maxWidth: '14ch' }}>Or reach us directly.</h2>
             <div className="bd">
               <div className="chan" data-rise style={{ '--d': '60ms' }}>
-                <a href="mailto:official@cyphernaut.in">
+                <a href="mailto:official@cyphernaut.ai">
                   <span className="k">Email</span>
-                  <span className="v">official@cyphernaut.in</span>
+                  <span className="v">official@cyphernaut.ai</span>
                 </a>
                 <a href="https://wa.me/918655100003" target="_blank" rel="noopener">
                   <span className="k">WhatsApp</span>
@@ -58,9 +58,9 @@ export default function BookView() {
                   <span className="k">Call</span>
                   <span className="v">+91 86551 00003</span>
                 </a>
-                <a href="https://www.instagram.com/cyphernaut.in/" target="_blank" rel="noopener">
+                <a href="https://www.instagram.com/cyphernaut.ai/" target="_blank" rel="noopener">
                   <span className="k">Instagram</span>
-                  <span className="v">cyphernaut.in</span>
+                  <span className="v">cyphernaut.ai</span>
                 </a>
                 <a href="https://www.linkedin.com/company/cyphernaut/" target="_blank" rel="noopener">
                   <span className="k">LinkedIn</span>
