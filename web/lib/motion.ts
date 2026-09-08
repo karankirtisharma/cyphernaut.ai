@@ -15,11 +15,13 @@ export const inv = (a: number, b: number, v: number) =>
   clamp((v - a) / (b - a), 0, 1);
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-/** rAF loop that is guaranteed to stop when the effect tears down. */
-export function loop(fn: (t: number) => void) {
+/** rAF loop that is guaranteed to stop when the effect tears down.
+ *  `fn` returning false ends it early, for work that finishes before the page
+ *  does — a loop with nothing left to do still costs a callback every frame. */
+export function loop(fn: (t: number) => void | boolean) {
   let id = 0;
   const tick = (t: number) => {
-    fn(t);
+    if (fn(t) === false) return;
     id = requestAnimationFrame(tick);
   };
   id = requestAnimationFrame(tick);
@@ -39,16 +41,25 @@ export function entrances(signal: AbortSignal) {
       }),
     { rootMargin: "0px 0px -12% 0px" },
   );
-  $$("[data-rise],[data-wipe],[data-iris]").forEach((el) => io.observe(el));
+  const pending = $$("[data-rise],[data-wipe],[data-iris]");
+  pending.forEach((el) => io.observe(el));
   signal.addEventListener("abort", () => io.disconnect());
 
-  /* anything already on screen must never wait for an intersection */
-  return () =>
-    $$(
-      "[data-rise]:not([data-in]),[data-wipe]:not([data-in]),[data-iris]:not([data-in])",
-    ).forEach((el) => {
+  /* Anything already on screen must never wait for an intersection.
+     Reports true once the list is empty, so the caller's loop can stop calling:
+     this used to re-query the whole document every few frames and measure each
+     match, for the life of the page, long after the last reveal had fired. */
+  return () => {
+    for (let i = pending.length - 1; i >= 0; i--) {
+      const el = pending[i];
+      if (el.hasAttribute("data-in")) {
+        pending.splice(i, 1);
+        continue;
+      }
       if (el.getBoundingClientRect().top < window.innerHeight * 0.9) reveal(el);
-    });
+    }
+    return pending.length === 0;
+  };
 }
 
 /* ------------------------------------------- coin stills, when they exist */
@@ -266,20 +277,63 @@ function contactPointer(signal: AbortSignal) {
   let my = 0;
   let near = false;
 
+  /* Both boxes are fixed until the page relayouts, so they are measured on
+     resize rather than on every pointer event and every frame. pointermove can
+     fire far above 60Hz, and each of those reads was forcing a layout. */
+  let stageBox = { left: 0, top: 0, w: 1, h: 1 };
+  let magnetBox = { cx: 0, cy: 0, h: 0 };
+  const measure = () => {
+    const s = stage.getBoundingClientRect();
+    stageBox = {
+      left: s.left,
+      top: s.top + window.scrollY,
+      w: s.width || 1,
+      h: s.height || 1,
+    };
+    if (!magnet) return;
+    /* at rest: the live rect includes the translate this module applies, so
+       reading it made the magnet compute its pull from its own displacement */
+    const prev = magnet.style.transform;
+    magnet.style.transform = "none";
+    const m = magnet.getBoundingClientRect();
+    magnetBox = {
+      cx: m.left + m.width / 2,
+      cy: m.top + window.scrollY + m.height / 2,
+      h: m.height,
+    };
+    magnet.style.transform = prev;
+  };
+  measure();
+  let rt = 0;
+  window.addEventListener(
+    "resize",
+    () => {
+      window.clearTimeout(rt);
+      rt = window.setTimeout(measure, 180);
+    },
+    { signal },
+  );
+  document.fonts?.ready.then(() => window.setTimeout(measure, 60));
+  const mt = window.setTimeout(measure, 1200);
+  signal.addEventListener("abort", () => {
+    window.clearTimeout(rt);
+    window.clearTimeout(mt);
+  });
+
   window.addEventListener(
     "pointermove",
     (e) => {
       mx = e.clientX;
       my = e.clientY;
-      const r = stage.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) {
+      const top = stageBox.top - window.scrollY;
+      if (top < window.innerHeight && top + stageBox.h > 0) {
         spot.style.setProperty(
           "--mx",
-          `${((e.clientX - r.left) / r.width) * 100}%`,
+          `${((e.clientX - stageBox.left) / stageBox.w) * 100}%`,
         );
         spot.style.setProperty(
           "--my",
-          `${((e.clientY - r.top) / r.height) * 100}%`,
+          `${((e.clientY - top) / stageBox.h) * 100}%`,
         );
         spot.style.opacity = "1";
       } else {
@@ -291,11 +345,13 @@ function contactPointer(signal: AbortSignal) {
 
   if (!magnet) return null;
   return () => {
-    const r = magnet.getBoundingClientRect();
-    const dx = mx - (r.left + r.width / 2);
-    const dy = my - (r.top + r.height / 2);
+    const cy = magnetBox.cy - window.scrollY;
+    const dx = mx - magnetBox.cx;
+    const dy = my - cy;
     const n =
-      Math.hypot(dx, dy) < 260 && r.top < window.innerHeight && r.bottom > 0;
+      Math.hypot(dx, dy) < 260 &&
+      cy - magnetBox.h / 2 < window.innerHeight &&
+      cy + magnetBox.h / 2 > 0;
     if (n !== near) {
       near = n;
       magnet.style.transition = n
@@ -330,9 +386,13 @@ export function usePageMotion() {
     const drawMagnet = rm ? null : contactPointer(ac.signal);
 
     let fc = 0;
+    let sweeping = true;
     const stop = loop(() => {
-      if (fc++ % 10 === 0) catchUp();
+      if (sweeping && fc++ % 10 === 0 && catchUp()) sweeping = false;
       drawMagnet?.();
+      /* on a page with no closing magnet — every page but the contact one —
+         there is nothing left to do once the last reveal has fired */
+      if (!sweeping && !drawMagnet) return false;
     });
 
     return () => {

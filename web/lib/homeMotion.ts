@@ -225,6 +225,22 @@ export function useHomeMotion() {
     let docScroll = 1;
     let stops: { y: number; c: number[] }[] = [];
 
+    /* Geometry the loops would otherwise re-measure every frame. All of it is
+       fixed until the page relayouts, which is exactly when build() reruns. */
+    let railBase: number[] = [];
+    let magnetBase = { cx: 0, cy: 0, h: 0 };
+    let closeBox = { left: 0, top: 0, w: 1, h: 1 };
+
+    /* Reads an element's untransformed layout. The rail and the magnet are
+       both moved by the frame loop, so measuring them as-is would feed their
+       own displacement back in — which is what made the magnet chase itself. */
+    const measureRested = (el: HTMLElement, read: () => void) => {
+      const prev = el.style.transform;
+      el.style.transform = "none";
+      read();
+      el.style.transform = prev;
+    };
+
     const build = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
@@ -255,6 +271,30 @@ export function useHomeMotion() {
       const b8 = box(close);
 
       railTravel = Math.max(0, rail.scrollWidth - window.innerWidth + 32);
+
+      measureRested(rail, () => {
+        railBase = railItems.map((it) => {
+          const r = it.getBoundingClientRect();
+          return r.left + r.width / 2;
+        });
+      });
+      if (magnet) {
+        measureRested(magnet, () => {
+          const r = magnet.getBoundingClientRect();
+          magnetBase = {
+            cx: r.left + r.width / 2,
+            cy: r.top + window.scrollY + r.height / 2,
+            h: r.height,
+          };
+        });
+      }
+      const cr = close.getBoundingClientRect();
+      closeBox = {
+        left: cr.left,
+        top: cr.top + window.scrollY,
+        w: cr.width || 1,
+        h: cr.height || 1,
+      };
 
       const cv = hex("#070908");
       const lit = hex("#0B120A");
@@ -288,15 +328,17 @@ export function useHomeMotion() {
           mx = e.clientX;
           my = e.clientY;
           if (!spot) return;
-          const r = close.getBoundingClientRect();
-          if (r.top < window.innerHeight && r.bottom > 0) {
+          /* pointermove can fire well above 60Hz; measuring here put a forced
+             layout on every one of those events */
+          const top = closeBox.top - window.scrollY;
+          if (top < window.innerHeight && top + closeBox.h > 0) {
             spot.style.setProperty(
               "--mx",
-              `${((e.clientX - r.left) / r.width) * 100}%`,
+              `${((e.clientX - closeBox.left) / closeBox.w) * 100}%`,
             );
             spot.style.setProperty(
               "--my",
-              `${((e.clientY - r.top) / r.height) * 100}%`,
+              `${((e.clientY - top) / closeBox.h) * 100}%`,
             );
             spot.style.opacity = "1";
           } else {
@@ -324,13 +366,26 @@ export function useHomeMotion() {
     };
 
     let fc = 0;
-    const frame = (t: number) => {
-      if (fc++ % 20 === 0) catchUp();
+    let sweeping = true;
+    const frame = () => {
+      /* ---- read phase -----------------------------------------------------
+         Every layout query in the frame happens here, before the first style
+         write. Interleaved, these reads made the browser recompute layout five
+         separate times per frame, because each write invalidated what the next
+         read needed. Batched, one recompute covers all of them.
+         Nothing below the write-phase marker may touch layout. */
+      if (sweeping && fc++ % 20 === 0 && catchUp()) sweeping = false;
       const vh = window.innerHeight;
+      const vw = window.innerWidth;
       const sy = window.scrollY;
+      const hp = prog(hero);
+      const sp = prog(silence);
+      const pp = prog(peak);
+      const tp = prog(team);
+
+      /* ---- write phase --------------------------------------------------- */
 
       /* hero */
-      const hp = prog(hero);
       if (!rm) {
         const scrolled = Math.max(0, sy);
         if (farPlane)
@@ -347,7 +402,6 @@ export function useHomeMotion() {
         /* The lead reads for the whole section now that the words scrub
            through it — the old window faded it out over the middle, which was
            right for a single static line and wrong for a running headline. */
-        const sp = prog(silence);
         sLine.style.opacity = (
           inv(0.02, 0.1, sp) *
           (1 - inv(0.94, 1, sp))
@@ -355,7 +409,6 @@ export function useHomeMotion() {
       }
 
       /* peak */
-      const pp = prog(peak);
       if (!rm) {
         const on1 = inv(0.3, 0.42, pp);
         const on2 = inv(0.64, 0.74, pp);
@@ -380,12 +433,13 @@ export function useHomeMotion() {
 
       /* crew rail */
       if (!rm) {
-        const tp = prog(team);
-        rail.style.transform = `translate3d(${(-railTravel * tp).toFixed(1)}px,0,0)`;
-        const cxv = window.innerWidth / 2;
+        const railX = -railTravel * tp;
+        rail.style.transform = `translate3d(${railX.toFixed(1)}px,0,0)`;
+        /* Each item's centre is its cached resting centre plus the translate
+           just written. Asking layout instead meant six forced reflows per
+           frame, every one of them immediately after that write. */
         railItems.forEach((it, i) => {
-          const r = it.getBoundingClientRect();
-          const dist = Math.abs(r.left + r.width / 2 - cxv) / window.innerWidth;
+          const dist = Math.abs(railBase[i] + railX - vw / 2) / vw;
           it.style.opacity =
             i === 0 ? "1" : String(clamp(1 - dist * 0.9, 0.55, 1));
         });
@@ -414,11 +468,17 @@ export function useHomeMotion() {
 
       /* the closing magnet */
       if (fine && !rm && magnet) {
-        const r = magnet.getBoundingClientRect();
-        const dx = mx - (r.left + r.width / 2);
-        const dy = my - (r.top + r.height / 2);
+        /* Measured at rest, then offset by scroll. Reading the live rect meant
+           reading the element through the translate this block had already
+           applied, so the pull was computed from where the magnet had moved to
+           rather than where it sits — it chased its own displacement. */
+        const cy = magnetBase.cy - sy;
+        const dx = mx - magnetBase.cx;
+        const dy = my - cy;
         const near =
-          Math.hypot(dx, dy) < 260 && r.top < window.innerHeight && r.bottom > 0;
+          Math.hypot(dx, dy) < 260 &&
+          cy - magnetBase.h / 2 < vh &&
+          cy + magnetBase.h / 2 > 0;
         magnet.style.transform = near
           ? `translate3d(${(dx * 0.26).toFixed(1)}px,${(dy * 0.26).toFixed(1)}px,0)`
           : "translate3d(0,0,0)";

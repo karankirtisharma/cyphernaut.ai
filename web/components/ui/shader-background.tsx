@@ -555,9 +555,14 @@ export function ShaderBackground({ className }: { className?: string }) {
     /* This shader is position:fixed, so it never leaves view and never stops
        while the tab is visible — the one sustained GPU cost on the page. On a
        phone, running it at the panel's full refresh is what drives thermal
-       throttling, and a slow ambient field loses nothing at 30fps. Desktop
-       keeps the full rate. */
-    const minFrameMs = window.matchMedia("(pointer: coarse)").matches ? 1000 / 30 : 0
+       throttling, and a slow ambient field loses nothing at 30fps.
+       Desktop is capped too, at 60. timeScale is 0.727 — the field drifts far
+       too slowly for anyone to tell 60 from 165, and on a high-refresh panel
+       the uncapped rate was spending most of a ~2 megapixel fullscreen draw
+       per frame competing with the scroll for the same GPU. */
+    const minFrameMs = window.matchMedia("(pointer: coarse)").matches
+      ? 1000 / 30
+      : 1000 / 60
     let lastDrawn = 0
 
     const render = (now: number) => {

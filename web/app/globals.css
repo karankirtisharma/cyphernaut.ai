@@ -881,7 +881,13 @@ html .shell:hover{transform:translateY(-6px)}
 /* `screen` is what makes this safe on a near-black page: the shader's canvas
    blacks contribute nothing, so the #ground colour shift still reads through
    untouched and only the lime blooms add light. */
-.shaderbg{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.62;mix-blend-mode:screen}
+/* No mix-blend-mode. A fixed, full-viewport blend layer stops the compositor
+   from simply translating scrolled content — it has to re-blend the whole
+   viewport every frame. This one bought nothing for that: it sits at z-index 1
+   with only #ground behind it, and `screen` against a near-black ground is
+   within a couple of RGB units of normal compositing. Verified identical
+   on screen against both the base and the lit ground colour. */
+.shaderbg{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.62}
 
 /* ==============================================================
    GradientButton (components/ui/shader-button.tsx)
