@@ -2,7 +2,7 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { $$ } from "@/lib/motion";
+import { $, $$ } from "@/lib/motion";
 import { getLenis, prefersReducedMotion } from "@/lib/smooth";
 
 /* Scroll-linked layer, on top of the existing IntersectionObserver reveals.
@@ -47,6 +47,121 @@ function splitWords(el: HTMLElement) {
   };
   walk(el);
   return { words };
+}
+
+/** Composed reveal for the services pillars.
+ *
+ *  The site-wide [data-rise] primitive is a 14px nudge plus a fade, and it is
+ *  the wrong tool here twice over. A full-height card needs more travel than a
+ *  caption does, and the three .svc rows inside a pillar sit 163px and 191px
+ *  apart — far enough that each one crosses the observer line hundreds of
+ *  milliseconds after the last, which is why the 60/120ms stagger declared in
+ *  the JSX has never actually been visible. This replaces both with one
+ *  timeline per pillar and a batch for the rows, so a group that arrives
+ *  together animates together. */
+function pillarReveals() {
+  const pillars = $$<HTMLElement>(".pillar");
+  if (!pillars.length) return;
+
+  /* Only now is the pseudo-element hairline safe to swap in for the border:
+     initScrollFx is skipped entirely under prefers-reduced-motion, and a
+     stylesheet-level swap would leave those readers with no lines at all. */
+  pillars.forEach((p) => p.classList.add("pillar-fx"));
+
+  /* the IO in entrances() has already observed these; dropping the attribute
+     makes its later data-in write inert rather than a second, fighting fade */
+  const take = (els: HTMLElement[]) => {
+    els.forEach((el) => el.removeAttribute("data-rise"));
+    return els;
+  };
+
+  pillars.forEach((pillar) => {
+    /* ---- head: the card wipes up, its contents rise inside it ---- */
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: pillar, start: "top 78%", once: true },
+    });
+
+    const shell = $<HTMLElement>(".pillar-head .shell", pillar);
+    if (shell) {
+      /* clipPath and opacity only. .shell declares a transition on transform,
+         box-shadow and border-color for its hover lift — writing a transform
+         here would put a 160ms lag on every frame GSAP sets. The radius is
+         carried through the tween so the corners never square off. */
+      take([shell]);
+      tl.fromTo(
+        shell,
+        { clipPath: "inset(0% 0% 100% 0% round 24px)", opacity: 0 },
+        {
+          clipPath: "inset(0% 0% 0% 0% round 24px)",
+          opacity: 1,
+          duration: 0.9,
+          ease: "expo.out",
+          /* a clip-path left on the element would keep cutting its hover
+             box-shadow, which reaches 24px past the border box */
+          onComplete: () => gsap.set(shell, { clearProps: "clipPath" }),
+        },
+      ).fromTo(
+        $$<HTMLElement>(".core > *", shell),
+        { y: 26, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "expo.out", stagger: 0.07 },
+        0.12,
+      );
+    }
+
+    /* h2.dl is deliberately not taken: wordReveals() already gives it a
+       per-word mask reveal, and globals.css neutralises its data-rise. Only
+       the standfirst under it needs driving. */
+    const lede = take($$<HTMLElement>(".pillar-head > p[data-rise]", pillar));
+    if (lede.length) {
+      tl.fromTo(
+        lede,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "expo.out" },
+        0.14,
+      );
+    }
+
+    /* ---- rows: line first, then the words it underlines ---- */
+    const rows = take($$<HTMLElement>(".svc", pillar));
+    if (!rows.length) return;
+
+    rows.forEach((row) => {
+      gsap.set($$<HTMLElement>("h4, p", row), { y: 18, opacity: 0 });
+      gsap.set($<HTMLElement>(".plus", row), { opacity: 0 });
+      gsap.set(row, { "--svc-line": 0 });
+    });
+
+    ScrollTrigger.batch(rows, {
+      start: "top 88%",
+      once: true,
+      onEnter: (batch) => {
+        batch.forEach((row, i) => {
+          const at = i * 0.09;
+          gsap.to(row, {
+            "--svc-line": 1,
+            duration: 0.55,
+            ease: "power2.out",
+            delay: at,
+          });
+          gsap.to(row.querySelectorAll("h4, p"), {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power3.out",
+            stagger: 0.05,
+            delay: at + 0.08,
+          });
+          /* opacity only: .plus declares its own transform transition for the
+             hover state */
+          gsap.to(row.querySelectorAll(".plus"), {
+            opacity: 1,
+            duration: 0.4,
+            delay: at + 0.18,
+          });
+        });
+      },
+    });
+  });
 }
 
 export function initScrollFx(signal: AbortSignal) {
@@ -142,6 +257,7 @@ export function initScrollFx(signal: AbortSignal) {
       );
     });
 
+    pillarReveals();
   });
 
   /* late-loading images change every trigger's geometry */
@@ -153,5 +269,8 @@ export function initScrollFx(signal: AbortSignal) {
     window.clearTimeout(t);
     window.removeEventListener("load", refresh);
     ctx.revert();
+    /* ctx.revert() strips the inline --svc-line, so the class has to go with
+       it or the pseudo-element hairlines would revert to scaleX(0) */
+    $$(".pillar-fx").forEach((p) => p.classList.remove("pillar-fx"));
   });
 }

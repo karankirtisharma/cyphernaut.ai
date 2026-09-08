@@ -94,6 +94,15 @@ em.lime{font-style:normal}
 .pillar-body{grid-column:6/13;display:flex;flex-direction:column;gap:1px}
 .svc{position:relative;padding:clamp(1.5rem,2.4vw,2rem) 0;border-top:1px solid var(--hair);display:grid;grid-template-columns:1fr auto;gap:.5rem 1.5rem;align-items:start}
 .svc:first-child{border-top:0}
+/* A border cannot be drawn, so while the GSAP reveal owns a pillar the border
+   hands off to a pseudo-element that scales in from the left. The class is
+   added by pillarReveals() and nowhere else: initScrollFx never runs under
+   prefers-reduced-motion, and swapping in the stylesheet would leave those
+   readers with no hairlines at all. Absolute, so the grid does not lay it out
+   as a cell; -1px, because absolute offsets start inside the border. */
+.pillar-fx .svc{border-top-color:transparent}
+.pillar-fx .svc::before{content:"";position:absolute;left:0;top:-1px;width:100%;height:1px;background:var(--hair);transform:scaleX(var(--svc-line,1));transform-origin:0 50%}
+.pillar-fx .svc:first-child::before{content:none}
 .svc h4{grid-column:1/2}
 .svc p{grid-column:1/2;color:var(--ink-soft);max-width:52ch;margin-top:.6rem}
 .svc .plus{grid-column:2/3;grid-row:1/2;margin-top:.2rem}
