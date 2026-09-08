@@ -34,7 +34,7 @@ export default function Footer() {
           <div className="fz-brand">
             <p className="fz-name">CYPHERNAUT</p>
             <p className="fz-tag">
-              Marketing, tokenomics and community for AI and Web3 projects.
+              Software, marketing and community for AI and Web3 projects.
             </p>
             <ul className="fz-social">
               {SOCIAL.map((s) => (

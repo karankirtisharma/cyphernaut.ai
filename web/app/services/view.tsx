@@ -46,16 +46,16 @@ export default function ServicesView() {
               </div>
               <div className="pillar-body">
                 <article className="svc" data-rise>
-                  <h4 className="ds">AI &amp; Product Launch Marketing</h4>
-                  <p>Full-spectrum marketing that puts the product in front of the right audience, from pre-launch buzz to post-launch growth.</p>
+                  <h4 className="ds">Positioning &amp; Go-to-Market Strategy</h4>
+                  <p>Market research, audience definition and the messaging that separates the product from everything adjacent, turned into a launch plan with dates against it.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '60ms' }}>
-                  <h4 className="ds">Tokenomics Strategy &amp; Design</h4>
-                  <p>Sustainable tokenomics models that balance utility, scarcity and incentives to create long-term value for the project and its community. Analysis: in-depth market research. Modeling: sustainable, scalable distribution.</p>
+                  <h4 className="ds">Brand Narrative &amp; Messaging</h4>
+                  <p>The story the product is told in and the language everyone uses to tell it, consistent from the landing page to the pitch deck to the first post.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '120ms' }}>
-                  <h4 className="ds">NFT Project Promotion &amp; Strategy</h4>
-                  <p>End-to-end NFT marketing, from pre-mint hype to post-launch community management, so the collection stands out in a crowded marketplace.</p>
+                  <h4 className="ds">AI &amp; Product Launch Marketing</h4>
+                  <p>Full-spectrum marketing that puts the product in front of the right audience, from pre-launch buzz to post-launch growth.</p>
                 </article>
               </div>
             </div>
@@ -92,8 +92,8 @@ export default function ServicesView() {
                   <p>Targeted engagement campaigns, AMAs, contests, airdrops, giveaways and interactive events that build loyalty and growth.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '60ms' }}>
-                  <h4 className="ds">DAO / Community Server Management</h4>
-                  <p>Discord, Telegram and other community platforms, with active moderation, engagement and governance for the DAO or community.</p>
+                  <h4 className="ds">Discord &amp; Telegram Server Management</h4>
+                  <p>Moderation, engagement and the day-to-day running of Discord, Telegram and forum communities, so the space stays active and worth being in as it grows.</p>
                 </article>
                 <article className="svc" data-rise style={{ '--d': '120ms' }}>
                   <h4 className="ds">AI &amp; Web3 Community Growth</h4>

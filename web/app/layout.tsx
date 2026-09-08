@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "Cyphernaut builds, launches and grows AI and Web3 projects: production software, strategy, tokenomics, marketing and community, from first commit to sustained growth.",
+    "Cyphernaut builds, launches and grows AI and Web3 projects: production software, strategy, marketing and community, from first commit to sustained growth.",
   openGraph: {
     type: "website",
     siteName: "Cyphernaut",

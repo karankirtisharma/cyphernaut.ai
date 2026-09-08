@@ -148,18 +148,18 @@ export default function HomeView() {
                   <p style={{ maxWidth: '30ch' }}>From the first idea to launch day: the plan, the story, the drop.</p>
                   <div className="rows">
                     <button className="srow" type="button" aria-expanded="false">
+                      <span className="srow-n">Positioning &amp; Go-to-Market Strategy</span>
+                      <span className="vh" data-desc>Market research, audience definition and the messaging that separates the product from everything adjacent, turned into a launch plan with dates against it.</span>
+                      <span className="plus" aria-hidden="true"></span>
+                    </button>
+                    <button className="srow" type="button" aria-expanded="false">
+                      <span className="srow-n">Brand Narrative &amp; Messaging</span>
+                      <span className="vh" data-desc>The story the product is told in and the language everyone uses to tell it, consistent from the landing page to the pitch deck to the first post.</span>
+                      <span className="plus" aria-hidden="true"></span>
+                    </button>
+                    <button className="srow" type="button" aria-expanded="false">
                       <span className="srow-n">AI &amp; Product Launch Marketing</span>
                       <span className="vh" data-desc>Full-spectrum marketing that puts the product in front of the right audience, from pre-launch buzz to post-launch growth.</span>
-                      <span className="plus" aria-hidden="true"></span>
-                    </button>
-                    <button className="srow" type="button" aria-expanded="false">
-                      <span className="srow-n">Tokenomics Strategy &amp; Design</span>
-                      <span className="vh" data-desc>Sustainable tokenomics models that balance utility, scarcity and incentives to create long-term value for the project and its community. Analysis: in-depth market research. Modeling: sustainable, scalable distribution.</span>
-                      <span className="plus" aria-hidden="true"></span>
-                    </button>
-                    <button className="srow" type="button" aria-expanded="false">
-                      <span className="srow-n">NFT Project Promotion &amp; Strategy</span>
-                      <span className="vh" data-desc>End-to-end NFT marketing, from pre-mint hype to post-launch community management, so the collection stands out in a crowded marketplace.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                   </div>
@@ -203,8 +203,8 @@ export default function HomeView() {
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                     <button className="srow" type="button" aria-expanded="false">
-                      <span className="srow-n">DAO / Community Server Management</span>
-                      <span className="vh" data-desc>Discord, Telegram and other community platforms, with active moderation, engagement and governance for the DAO or community.</span>
+                      <span className="srow-n">Discord &amp; Telegram Server Management</span>
+                      <span className="vh" data-desc>Moderation, engagement and the day-to-day running of Discord, Telegram and forum communities, so the space stays active and worth being in as it grows.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                     <button className="srow" type="button" aria-expanded="false">
