@@ -66,7 +66,12 @@ export default function HeroScene({ className }: { className?: string }) {
       const tanV = Math.tan((camera.fov * Math.PI) / 360);
       const dV = halfH / tanV;
       const dH = halfW / (tanV * Math.max(0.2, camera.aspect));
-      camera.position.z = PLATE_Z + Math.max(dV, dH) * 1.02;
+      /* 5%, not 2%. The astronaut's opaque pixels reach the plate's left and
+         bottom edges exactly, so the fit has no tolerance of its own — any
+         rounding in the canvas size or DPR shaves real content off the boot.
+         The cost is a marginally smaller astronaut; the alternative is a
+         cropped one. */
+      camera.position.z = PLATE_Z + Math.max(dV, dH) * 1.05;
       camera.updateProjectionMatrix();
     };
 

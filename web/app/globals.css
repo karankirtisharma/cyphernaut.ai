@@ -639,6 +639,11 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
   #peak{height:300vh}
   .peakstage{align-items:center}
   .peakgrid{display:flex;flex-direction:column;gap:2.5rem}
+  /* .peakgrid is align-items:center, so a column flex item is sized to its
+     content rather than stretched. .peakshots is percentage-width, so without
+     an explicit basis both collapse to 0 and the phase plates vanish —
+     .peakcopy already carries the same fix for the same reason. */
+  .peakcoin{width:100%}
   .peakcoin .coin{--cs:min(58vw,34vh)}
   .peakcopy{min-height:15rem;width:100%}
   .olist{grid-template-columns:1fr}
