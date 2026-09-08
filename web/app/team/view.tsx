@@ -63,7 +63,7 @@ export default function TeamView() {
           <div className="wrap g12 quiet-g">
             <h2 className="dl" data-rise style={{ maxWidth: '16ch' }}>One team, end to end.</h2>
             <div className="bd">
-              <p className="meas" data-rise style={{ '--d': '60ms' }}>Every engagement is end to end. One experienced team guides the project through every step, from the first announcement to the growth that follows, in a landscape, AI and on-chain alike, that does not sit still.</p>
+              <p className="meas" data-rise style={{ '--d': '60ms' }}>Every engagement is end to end. One experienced team carries the project through every step, from the first commit and the first announcement to the growth that follows, in a landscape, AI and on-chain alike, that does not sit still.</p>
               <p className="meas soft" data-rise style={{ '--d': '120ms' }}>End to end. One team from the first announcement to the growth that follows.</p>
               <a className="ghost" href="/services" data-rise style={{ '--d': '180ms' }}>What the team does<span aria-hidden="true">&#8599;</span></a>
             </div>

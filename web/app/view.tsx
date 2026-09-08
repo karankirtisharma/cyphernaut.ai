@@ -124,8 +124,8 @@ export default function HomeView() {
               <h2 className="dl" data-rise>A project nobody has heard of is a private project.</h2>
             </div>
             <div className="bd">
-              <p className="meas" data-rise style={{ '--d': '70ms' }}>Cyphernaut plans, launches and grows AI and Web3 projects. Whether it is an AI product, the next memecoin or a DeFi platform, the work is the same: strategy tailored to the project, a launch that lands, and growth that holds.</p>
-              <p className="meas" data-rise style={{ '--d': '140ms' }}>Every engagement is end to end. One experienced team guides the project through every step, from the first announcement to the growth that follows, in a landscape, AI and on-chain alike, that does not sit still.</p>
+              <p className="meas" data-rise style={{ '--d': '70ms' }}>Cyphernaut builds, launches and grows AI and Web3 projects. Whether it is an AI product, the next memecoin or a DeFi platform, the work is the same: strategy tailored to the project, a launch that lands, and growth that holds.</p>
+              <p className="meas" data-rise style={{ '--d': '140ms' }}>Every engagement is end to end. One experienced team carries the project through every step, from the first commit and the first announcement to the growth that follows, in a landscape, AI and on-chain alike, that does not sit still.</p>
               <p className="meas soft" data-rise style={{ '--d': '210ms' }}>End to end. One team from the first announcement to the growth that follows.</p>
             </div>
           </div>
@@ -245,25 +245,25 @@ export default function HomeView() {
               <div className="shell b5" data-wipe data-card style={{ '--d': '360ms' }}>
                 <div className="core">
                   <div className="pname"><h3 className="dm">BUILD</h3></div>
-                  <p className="soft" style={{ maxWidth: '34ch' }}>The product itself, engineered and shipped.</p>
+                  <p className="soft" style={{ maxWidth: '34ch' }}>Production systems, owned end to end and built to scale.</p>
                   <div className="rows">
                     <button className="srow" type="button" aria-expanded="false">
                       <span className="srow-n">AI &amp; LLM Product Development</span>
-                      <span className="vh" data-desc>Assistants, copilots, retrieval and agent workflows built on your own data and integrated into a working product rather than left in a demo.</span>
+                      <span className="vh" data-desc>Assistants, copilots, retrieval and agent workflows built on your own data, taken past the demo into production with evaluation, guardrails and monitoring in place.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                     <button className="srow" type="button" aria-expanded="false">
                       <span className="srow-n">ERP, CRM &amp; Workflow Automation</span>
-                      <span className="vh" data-desc>ERP and CRM implementation, integrations between the tools already in use, and automations that take the repetitive work off the team.</span>
+                      <span className="vh" data-desc>ERP and CRM rollouts, integrations across the tools already in use, and automations that run unattended: migrated, documented and handed over without downtime.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                     <button className="srow" type="button" aria-expanded="false">
                       <span className="srow-n">Full-Stack Web &amp; Platform Engineering</span>
-                      <span className="vh" data-desc>Sites, dashboards, dApps and internal platforms, designed and shipped end to end, from the first wireframe to production.</span>
+                      <span className="vh" data-desc>Sites, dashboards, dApps and internal platforms owned end to end, from the first wireframe to production, and built to hold as traffic and headcount grow.</span>
                       <span className="plus" aria-hidden="true"></span>
                     </button>
                   </div>
-                  <p className="detail" data-detail data-default="The product itself, engineered and shipped.">The product itself, engineered and shipped.</p>
+                  <p className="detail" data-detail data-default="Production systems, owned end to end and built to scale.">Production systems, owned end to end and built to scale.</p>
                 </div>
               </div>
             </div>

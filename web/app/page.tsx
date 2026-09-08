@@ -4,12 +4,12 @@ import HomeView from "./view";
 
 export const metadata: Metadata = {
   title: "Cyphernaut | AI and Web3 launch marketing",
-  description: "Cyphernaut plans, launches and grows AI and Web3 projects: strategy, tokenomics, marketing and community, from first announcement to sustained growth.",
+  description: "Cyphernaut builds, launches and grows AI and Web3 projects: production software, strategy, tokenomics, marketing and community, from first commit to sustained growth.",
   alternates: { canonical: "/" },
   openGraph: {
     ...OG_BASE,
     title: "Cyphernaut | AI and Web3 launch marketing",
-    description: "Cyphernaut plans, launches and grows AI and Web3 projects: strategy, tokenomics, marketing and community, from first announcement to sustained growth.",
+    description: "Cyphernaut builds, launches and grows AI and Web3 projects: production software, strategy, tokenomics, marketing and community, from first commit to sustained growth.",
     url: "/",
   },
 };
