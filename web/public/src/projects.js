@@ -8,41 +8,45 @@ import { rand } from './rng.js';
  * for building and is not fine to ship: a Cyphernaut site listing them reads
  * as claiming another studio's portfolio.
  *
- * Replaced with names drawn from Cyphernaut's own service list (strategy,
- * platform architecture, automation & integration, analytics & optimisation,
- * continuous command). They are invented and should be swapped for the real
- * engagements -- the shape is what matters here: title, client, colour, year,
- * tag, perma, one-line subhead. Count stays at 14 because the spine's card
- * spacing and the camera rail are solved against it.
+ * Cards 1-7 now carry Cyphernaut's real service names, in the order given.
+ * Cards 8-14 are still invented placeholders and should be replaced the same
+ * way. Count stays at 14 because the spine's card spacing and the camera rail
+ * are solved against it.
+ *
+ * `title` and `perma` are the live fields: the title is drawn into the card
+ * texture, and the perma is what the a11y nav links to and what main.js pushes
+ * into history as /work/<perma> on click. `tag` and `subhead` are read by
+ * nothing right now, so the ones on cards 1-7 still describe the placeholders
+ * they replaced -- worth rewriting before either is wired up to anything.
  */
 export const PROJECTS = [
-  { title: 'PR Engine',              client: 'Cyphernaut',       color: '#8a8bcf', year: '2025', tag: 'platform',     perma: 'pr-engine',
+  { title: 'PR Engine',                                client: 'Cyphernaut',       color: '#8a8bcf', year: '2025', tag: 'platform',     perma: 'pr-engine',
     subhead: 'Automated release orchestration across the delivery pipeline' },
-  { title: 'Signal Deck',            client: 'Cyphernaut',       color: '#48bdb5', year: '2025', tag: 'analytics',    perma: 'signal-deck',
+  { title: 'Tokenomics Design & Economic Engineering', client: 'Cyphernaut',       color: '#48bdb5', year: '2025', tag: 'analytics',    perma: 'tokenomics-design',
     subhead: 'Live operational telemetry consolidated into one vantage point' },
-  { title: 'Relay Grid',             client: 'Cyphernaut',       color: '#979793', year: '2024', tag: 'integration',  perma: 'relay-grid',
+  { title: 'Token Treasury Management',                client: 'Cyphernaut',       color: '#979793', year: '2024', tag: 'integration',  perma: 'token-treasury-management',
     subhead: 'Event routing between systems that were never meant to speak' },
-  { title: 'Vantage',                client: 'Cyphernaut',       color: '#765648', year: '2024', tag: 'strategy',     perma: 'vantage',
+  { title: 'Launch Strategy',                          client: 'Cyphernaut',       color: '#765648', year: '2024', tag: 'strategy',     perma: 'launch-strategy',
     subhead: 'Positioning and roadmap work for platform-stage teams' },
-  { title: 'Continuous Command',     client: 'Cyphernaut',       color: '#00c390', year: '2025', tag: 'operations',   perma: 'continuous-command',
+  { title: 'Community Growth & Ecosystem Development', client: 'Cyphernaut',       color: '#00c390', year: '2025', tag: 'operations',   perma: 'community-growth',
     subhead: 'Always-on oversight of infrastructure health and spend' },
-  { title: 'Meridian',               client: 'Cyphernaut',       color: '#7ccca3', year: '2024', tag: 'architecture', perma: 'meridian',
+  { title: 'KOL Network and Influencer Activation',    client: 'Cyphernaut',       color: '#7ccca3', year: '2024', tag: 'architecture', perma: 'kol-network',
     subhead: 'Service topology redesigned around clear ownership lines' },
-  { title: 'Threshold',              client: 'Cyphernaut',       color: '#1587ce', year: '2023', tag: 'platform',     perma: 'threshold',
+  { title: 'Content Creation & Media Production',      client: 'Cyphernaut',       color: '#1587ce', year: '2023', tag: 'platform',     perma: 'content-creation',
     subhead: 'Access and identity unified across a fragmented estate' },
-  { title: 'Longwave',               client: 'Cyphernaut',       color: '#62777c', year: '2024', tag: 'analytics',    perma: 'longwave',
+  { title: 'Longwave',                                 client: 'Cyphernaut',       color: '#62777c', year: '2024', tag: 'analytics',    perma: 'longwave',
     subhead: 'Retention modelling that survives contact with real data' },
-  { title: 'Anchorpoint',            client: 'Cyphernaut',       color: '#77e7e5', year: '2023', tag: 'architecture', perma: 'anchorpoint',
+  { title: 'Anchorpoint',                              client: 'Cyphernaut',       color: '#77e7e5', year: '2023', tag: 'architecture', perma: 'anchorpoint',
     subhead: 'A migration path off legacy without a freeze window' },
-  { title: 'Dead Reckoning',         client: 'Cyphernaut',       color: '#ffa147', year: '2025', tag: 'strategy',     perma: 'dead-reckoning',
+  { title: 'Dead Reckoning',                           client: 'Cyphernaut',       color: '#ffa147', year: '2025', tag: 'strategy',     perma: 'dead-reckoning',
     subhead: 'Forecasting capacity when the historical data is thin' },
-  { title: 'Fathom',                 client: 'Cyphernaut',       color: '#e71407', year: '2024', tag: 'analytics',    perma: 'fathom',
+  { title: 'Fathom',                                   client: 'Cyphernaut',       color: '#e71407', year: '2024', tag: 'analytics',    perma: 'fathom',
     subhead: 'Cost attribution traced to the teams that generate it' },
-  { title: 'Waypoint',               client: 'Cyphernaut',       color: '#19a8d9', year: '2023', tag: 'integration',  perma: 'waypoint',
+  { title: 'Waypoint',                                 client: 'Cyphernaut',       color: '#19a8d9', year: '2023', tag: 'integration',  perma: 'waypoint',
     subhead: 'Partner onboarding reduced from quarters to days' },
-  { title: 'Standing Order',         client: 'Cyphernaut',       color: '#80a0a6', year: '2025', tag: 'operations',   perma: 'standing-order',
+  { title: 'Standing Order',                           client: 'Cyphernaut',       color: '#80a0a6', year: '2025', tag: 'operations',   perma: 'standing-order',
     subhead: 'Runbooks that execute themselves and report when they cannot' },
-  { title: 'Trueline',               client: 'Cyphernaut',       color: '#ec9c30', year: '2024', tag: 'platform',     perma: 'trueline',
+  { title: 'Trueline',                                 client: 'Cyphernaut',       color: '#ec9c30', year: '2024', tag: 'platform',     perma: 'trueline',
     subhead: 'One deployment path for every service in the estate' },
 ];
 

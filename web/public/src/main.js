@@ -1233,7 +1233,20 @@ ambienceRoot.add(mist.group);
 
 const about = buildAbout();
 
-const projects = shuffled(PROJECTS);
+/* Cards 1-7 are Cyphernaut's services and have to read in the order they were
+ * given. shuffled() pins index 0 only, which left two placeholders at
+ * positions 5 and 7 and pushed two services out to 11 and 13.
+ *
+ * Partitioned after the shuffle rather than by changing its loop: rand() is one
+ * seeded stream and the header of rng.js is explicit that adding or removing a
+ * single call shifts every value after it and relays the whole scene. Calling
+ * shuffled() unchanged keeps the draw exactly as long as it was, so the
+ * vegetation is untouched; only the order of this array differs. */
+const SERVICES = PROJECTS.slice(0, 7);
+const projects = [
+  ...SERVICES,
+  ...shuffled(PROJECTS).filter(p => !SERVICES.includes(p)),
+];
 const { group: cardGroup, cards } = buildCards(projects, shared, {
   env: envTex, normal: normalTex, video: video.texture, refraction: refractionRT.texture,
 });
