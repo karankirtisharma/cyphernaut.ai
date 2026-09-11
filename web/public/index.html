@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cyphernaut | AI and Web3 launch marketing</title>
+<meta name="description" content="Cyphernaut builds, launches and grows AI and Web3 projects: production software, strategy, marketing and community, from first commit to sustained growth.">
+<link rel="canonical" href="https://cyphernaut.ai/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cyphernaut">
+<meta property="og:title" content="Cyphernaut | AI and Web3 launch marketing">
+<meta property="og:description" content="Cyphernaut builds, launches and grows AI and Web3 projects: production software, strategy, marketing and community, from first commit to sustained growth.">
+<meta property="og:url" content="https://cyphernaut.ai/">
+<meta property="og:image" content="https://cyphernaut.ai/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cyphernaut.ai/assets/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23070908'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23BFFF00' stroke-width='2.5'/%3E%3C/svg%3E">
+<style>
+  /* --- critical CSS, ported from the original's inline <head> block --- */
+  #Stage, body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
+    -ms-content-zooming: none; -ms-touch-action: none; touch-action: none;
+    background: #03120e;   /* matches VOID in main.js, see the canvas rule below */
+  }
+  /* NB Architekt Std is a licensed Neubau typeface and cannot be redistributed.
+     This is the nearest widely-available technical mono fallback. */
+  :root {
+    --font: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+    --baropacity: 0.0;
+  }
+  ::-webkit-scrollbar { width: 8px }
+  ::-webkit-scrollbar-track { background: 0 0 }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,var(--baropacity,0.9)); border-radius: 10px }
+
+  #Stage, #Stage * {
+    user-select: none; -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: none;
+  }
+  #Stage *, #Stage ::after, #Stage ::before { box-sizing: border-box }
+  #Stage * textarea { user-select: auto; -webkit-user-select: auto }
+
+  /* Matches VOID / the renderer clear colour in main.js, on purpose.
+     Any region GL has not written this frame falls through to this colour. When
+     it was `black` that region read as a hard black rectangle against the
+     scene's dark-green void -- which is what the refresh artifact looked like.
+     Matching the two makes a stale or unwritten region indistinguishable from
+     the backdrop instead of a visible block. */
+  canvas { display: block; background: #03120e; pointer-events: none }
+
+  /* --- hidden accessibility mirror, same pattern as the original's GLA11y --- */
+  .GLA11y { position: absolute; width: 0; height: 100%; clip: rect(0 0 0 0); overflow: hidden }
+  .GLA11y * { position: relative !important }
+
+  /* --- virtual scroll track --- */
+  .FXScroll {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2; overflow-x: hidden; overflow-y: scroll;
+  }
+  .scrollElement { width: 100%; position: absolute; top: 0 }
+
+  /* --- Nav capsule --- */
+  .NavUI {
+    position: fixed; top: 34px; right: 32px; z-index: 4;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px; padding: 0 22px;
+    /* auto, not the reference's fixed 218px: that width was measured for three
+       cells and the two site links overflow it. */
+    width: auto; height: 34px;
+    border: 1px solid rgba(255,255,255,0.16); border-radius: 500px;
+    background: rgba(10,12,14,0.35); backdrop-filter: blur(6px);
+    mix-blend-mode: plus-lighter;
+  }
+  .NavUI a {
+    font-family: var(--font); font-size: 10px; font-weight: 400; letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.82); text-decoration: none; text-transform: uppercase;
+    pointer-events: auto; cursor: pointer; transition: color .3s ease-out, text-shadow .3s ease-out;
+    white-space: nowrap;
+  }
+  /* Five cells no longer clear 375px at the desktop rhythm — "Book a call"
+     wrapped and spilled past the 34px capsule. Tightening the gap and the side
+     padding buys the ~36px needed to keep every label on one line. */
+  @media (max-width: 480px) {
+    .NavUI { gap: 9px; padding: 0 14px }
+    .NavUI .NavOut { padding-left: 9px }
+  }
+  .NavUI a:hover { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,.7) }
+  /* the two that leave the page, fenced off from the scene anchors */
+  .NavUI .NavOut { padding-left: 14px; border-left: 1px solid rgba(255,255,255,0.16) }
+  .NavUI .NavOut + .NavOut { padding-left: 0; border-left: 0 }
+  .NavUI canvas { width: 62px; height: 22px; pointer-events: auto; cursor: pointer }
+
+  /* --- second nav pill, from reference image 1: x 1484-1614 of 1671, y 90-119.
+     Squarer corners than the capsule above it, and split into a label cell and a
+     short code cell by a single rule. --- */
+  .NavSub {
+    position: fixed; top: 78px; right: 34px; z-index: 4;
+    display: flex; align-items: stretch;
+    height: 26px;
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+    background: rgba(10,14,12,0.34); backdrop-filter: blur(6px);
+    font-family: var(--font); font-size: 9px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(255,255,255,0.7);
+    transition: opacity .45s ease-out;
+  }
+  .NavSubLabel { display: flex; align-items: center; padding: 0 14px }
+  .NavSubCode {
+    display: flex; align-items: center; padding: 0 10px;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* --- ChatDOM: CSS transcribed from the original (goober class .go3085902934) --- */
+  .ChatDOM .wrapper {
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 3rem;
+    mix-blend-mode: color-dodge; pointer-events: none; position: fixed; bottom: 0; left: 0;
+    z-index: 3; width: min(450px, 100%); height: calc(100% - 100px); background-color: transparent;
+  }
+  @media (max-width: 768px) { .ChatDOM .wrapper { padding: 2rem; mix-blend-mode: normal } }
+
+  /* Section 1 only — main.js toggles this off outside Home, where the panel
+     would sit on top of About's headline and the work spine's cards. */
+  .ChatDOM .wrapper { transition: opacity .45s ease-out }
+  .ChatDOM.off .wrapper { opacity: 0; pointer-events: none }
+
+  .ChatDOM .messages {
+    display: flex; flex-direction: column-reverse; justify-content: flex-start;
+    overflow: hidden; margin-bottom: 1rem; height: 100%;
+    -webkit-mask-image: linear-gradient(to top, white 0%, white 75%, transparent 90%);
+            mask-image: linear-gradient(to top, white 0%, white 75%, transparent 90%);
+  }
+  .ChatDOM .messages p, .ChatDOM .messages a {
+    font-family: var(--font); font-size: 14px; font-weight: 400; line-height: 1.5;
+    margin: 6px 0 6px 10px; white-space: pre-wrap; text-transform: uppercase; letter-spacing: .04em;
+  }
+  @media (max-width: 768px) {
+    .ChatDOM .messages p, .ChatDOM .messages a { font-size: 13px; margin: 4px 0 }
+  }
+  .ChatDOM a {
+    color: rgb(198,198,198); pointer-events: auto; cursor: pointer; font-weight: 700;
+    width: fit-content; transition: all .4s cubic-bezier(.17,.4,.02,.99); transform: translateX(0);
+    text-decoration: none;
+  }
+  .ChatDOM a.active { color: #fff; text-shadow: #fff 1px 0 5px; transform: translateX(10px) }
+  @media (hover: hover) { .ChatDOM a:hover { color: #fff; font-weight: 400 } }
+  @media (max-width: 768px) {
+    .ChatDOM a { color: rgb(238,238,238) }
+    .ChatDOM a.home { color: rgb(156,165,255) }
+  }
+  .ChatDOM textarea {
+    background: rgba(0,0,0,.2); color: rgba(255,255,255,.7);
+    font-family: var(--font); font-weight: 400; font-size: 14px; outline: none;
+    border: 2px solid rgba(255,255,255,.3); border-radius: 50px; padding: 14px 25px 4px;
+    transition: all .8s cubic-bezier(.17,.4,.02,.99);
+    width: 200px; white-space: nowrap; min-height: 40px; resize: none;
+    pointer-events: auto; overflow: hidden; text-transform: uppercase; letter-spacing: .04em;
+  }
+  .ChatDOM textarea:hover { border: 2px solid rgba(255,255,255,.5) }
+  .ChatDOM textarea:focus { color: #eee; background: rgba(0,0,0,.5); border: 2px solid rgba(255,255,255,.8) }
+  .ChatDOM textarea.extended { background: rgba(0,0,0,.5); border: 2px solid rgba(255,255,255,.9); width: 330px }
+  .ChatDOM textarea::placeholder { color: rgba(255,255,255,.4) }
+
+  .ChatDOM .flashing {
+    position: relative; left: 37px; bottom: 32px; width: 12px; height: 12px; border-radius: 6px;
+    background-color: rgb(0,255,255); color: rgb(0,255,255); opacity: .3;
+    animation: dot-flashing 1.5s linear .75s infinite alternate;
+  }
+  .ChatDOM .flashing::before, .ChatDOM .flashing::after {
+    content: ""; display: inline-block; position: absolute; top: 0;
+    width: 12px; height: 12px; border-radius: 6px; color: rgb(0,255,255); opacity: 1;
+    background-color: rgb(0,255,255); animation: dot-flashing 1.5s ease infinite alternate;
+  }
+  .ChatDOM .flashing::before { left: -25px; animation-delay: 0s }
+  .ChatDOM .flashing::after  { left:  25px; animation-delay: 1.5s }
+
+  @keyframes dot-flashing {
+    0%       { background-color: rgb(0,255,255); box-shadow: rgb(0,255,255) 0 1px 6px }
+    50%,100% { background-color: rgba(200,255,255,.2) }
+  }
+
+  /* --- scroll hint --- */
+  .hint {
+    position: fixed; left: 50%; bottom: 34px; transform: translateX(-50%); z-index: 3;
+    font-family: var(--font); font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+    color: rgba(255,255,255,.45); pointer-events: none;
+    transition: opacity .5s cubic-bezier(.39,.575,.565,1);
+  }
+
+  .loading {
+    position: fixed; inset: 0; z-index: 10; display: grid; place-items: center;
+    background: #03120e; color: rgba(255,255,255,.5);   /* matches VOID in main.js */
+    font-family: var(--font); font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    transition: opacity .8s ease-out;
+  }
+
+  /* Three bars that resize and swap corners. The source uses #000, which would
+     be invisible on the near-black backdrop, so the gradient carries the pale
+     end of our green ramp instead. */
+  .loader {
+    width: 45px;
+    aspect-ratio: 1;
+    --c: no-repeat linear-gradient(#d8ff9a 0 0);
+    background: var(--c), var(--c), var(--c);
+    animation:
+      l18-1 1s infinite,
+      l18-2 1s infinite;
+  }
+  @keyframes l18-1 {
+    0%,100% { background-size: 20% 100% }
+    33%,66% { background-size: 20% 20% }
+  }
+  @keyframes l18-2 {
+    0%,33%   { background-position: 0    0, 50% 50%, 100% 100% }
+    66%,100% { background-position: 100% 0, 50% 50%, 0    100% }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .loader { animation: none; background-size: 20% 100% }
+  }
+</style>
+</head>
+<body>
+<div id="Stage">
+  <!-- accessibility mirror: real links, kept in DOM order, as the original does -->
+  <div class="GLA11y">
+    <h1>Work</h1>
+    <nav aria-label="Primary"><a href="#work">Work</a><a href="#contact">Contact</a><a href="/about/">About</a><a href="/book-a-call/">Book a call</a></nav>
+    <div id="a11yProjects"></div>
+  </div>
+
+  <div class="Container"><canvas id="gl"></canvas></div>
+
+  <nav class="NavUI" aria-hidden="true">
+    <a href="#work">Work</a>
+    <canvas id="wave" width="124" height="44" title="Toggle Audio"></canvas>
+    <a href="#contact">Contact</a>
+    <!-- Out to the Cyphernaut site. Real hrefs, not scene anchors: these leave
+         the page, so they must survive with JS off and be crawlable. -->
+    <a class="NavOut" href="/about/">About</a>
+    <a class="NavOut" href="/book-a-call/">Book a call</a>
+  </nav>
+
+  <!-- Second pill, directly under the nav capsule in reference image 1. Two cells
+       divided by a rule, the right one a short status code. -->
+  <div class="NavSub" id="navSub" aria-hidden="true">
+    <span class="NavSubLabel">// Services</span>
+    <span class="NavSubCode">OS</span>
+  </div>
+
+  <div class="ChatDOM">
+    <div class="wrapper">
+      <div class="messages">
+        <a class="home" href="#games">-&gt; games</a>
+        <a class="home" href="#multiplayer">-&gt; multiplayer</a>
+        <a class="home" href="#xr">-&gt; XR / VR / AI</a>
+        <a class="home" href="#installations">-&gt; installations</a>
+        <a class="home" href="#websites">-&gt; websites</a>
+        <p style="color:rgb(244,244,244)">What are you looking for?</p>
+      </div>
+      <textarea class="input" maxlength="100" placeholder="Ask me anything..." rows="1"></textarea>
+      <div class="flashing" style="opacity:0"></div>
+    </div>
+  </div>
+
+  <div class="hint" id="hint">Scroll</div>
+
+  <div class="FXScroll" id="scroll"><div class="scrollElement" id="track"></div></div>
+
+  <div class="loading" id="loading"><div class="loader"></div></div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/build/three.module.js",
+    "three/addons/": "./vendor/three/examples/jsm/",
+    "lenis": "./vendor/lenis/lenis.mjs"
+  }
+}
+</script>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -13,7 +13,13 @@ const LINKS = [
 
 export default function Nav() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  /* The Cyphernaut site now lives under /about — / is the WebGL entry page,
+     which is a static file outside the app router. "Home" here means the page
+     this nav belongs to, so every check below follows it. */
+  /* trailingSlash is on in next.config, so usePathname() hands back "/about/".
+     The old check compared against "/" — the one path with no trailing slash to
+     differ on — which is why a bare equality worked there and not here. */
+  const isHome = pathname.replace(/\/+$/, "") === "/about";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -52,7 +58,7 @@ export default function Nav() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const menuLinks = isHome ? LINKS : [{ href: "/", label: "Home" }, ...LINKS];
+  const menuLinks = isHome ? LINKS : [{ href: "/about", label: "Home" }, ...LINKS];
 
   return (
     <>
@@ -66,7 +72,7 @@ export default function Nav() {
           .join(" ")}
       >
         <div className="wrap">
-          <a className="mark" href={isHome ? "#home" : "/"}>
+          <a className="mark" href={isHome ? "#home" : "/about"}>
             CYPHERNAUT
           </a>
           <div className="navright">

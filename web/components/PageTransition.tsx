@@ -26,7 +26,7 @@ const FADE_OUT = 380;
 const SAFETY = 4000;
 
 const LABELS: Record<string, string> = {
-  "/": "CYPHERNAUT",
+  "/about": "CYPHERNAUT",
   "/services": "SERVICES",
   "/launch": "LAUNCH",
   "/team": "TEAM",

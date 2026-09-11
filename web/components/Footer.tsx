@@ -18,7 +18,7 @@ const SOCIAL = [
 ];
 
 export default function Footer() {
-  const isHome = usePathname() === "/";
+  const isHome = usePathname().replace(/\/+$/, "") === "/about";
 
   return (
     <footer className="fzone">
@@ -59,7 +59,7 @@ export default function Footer() {
 
           <nav className="fz-links" aria-label="Footer">
             <p className="fz-lbl">Quick links</p>
-            <a href={isHome ? "#home" : "/"}>Home</a>
+            <a href={isHome ? "#home" : "/about"}>Home</a>
             <a href="/services">Services</a>
             <a href="/launch">Launch</a>
             <a href="/team">Team</a>
