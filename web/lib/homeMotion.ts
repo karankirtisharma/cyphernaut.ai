@@ -28,7 +28,7 @@ const mix = (a: number[], b: number[], t: number) =>
 type Box = { x: number; y: number; top: number; w: number; h: number };
 
 /** The home page's scroll film: hero parallax, the ground colour ramp,
- *  the coin ignition at the peak, the crew rail
+ *  the coin ignition at the peak
  *  and the ground-colour shift.
  *
  *  This stays imperative on purpose. It is one continuous rAF pass over
@@ -183,8 +183,6 @@ export function useHomeMotion() {
     }
     const act6 = $<HTMLElement>("#outcomes");
     const team = $<HTMLElement>("#team");
-    const rail = $<HTMLElement>("[data-rail]");
-    const railItems = $$<HTMLElement>(".railitem");
     const close = $<HTMLElement>("#contact");
     const magnet = $<HTMLElement>("#magnet");
     const spot = $<HTMLElement>("#spot");
@@ -193,7 +191,7 @@ export function useHomeMotion() {
 
     /* coinPlane / farPlane belonged to the old coin hero and are absent from
        the rebuilt one. They stay optional — requiring them here would
-       early-return and take the peak, rail and ground with them. */
+       early-return and take the peak and ground with them. */
     if (
       !hero ||
       !heroCopy ||
@@ -205,7 +203,6 @@ export function useHomeMotion() {
       !peakCoin ||
       !act6 ||
       !team ||
-      !rail ||
       !close ||
       !ground
     ) {
@@ -221,19 +218,17 @@ export function useHomeMotion() {
     }
 
     /* ---- orbit thread geometry ---- */
-    let railTravel = 0;
     let docScroll = 1;
     let stops: { y: number; c: number[] }[] = [];
 
     /* Geometry the loops would otherwise re-measure every frame. All of it is
        fixed until the page relayouts, which is exactly when build() reruns. */
-    let railBase: number[] = [];
     let magnetBase = { cx: 0, cy: 0, h: 0 };
     let closeBox = { left: 0, top: 0, w: 1, h: 1 };
 
-    /* Reads an element's untransformed layout. The rail and the magnet are
-       both moved by the frame loop, so measuring them as-is would feed their
-       own displacement back in — which is what made the magnet chase itself. */
+    /* Reads an element's untransformed layout. The magnet is moved by the
+       frame loop, so measuring it as-is would feed its own displacement back
+       in — which is what made it chase itself. */
     const measureRested = (el: HTMLElement, read: () => void) => {
       const prev = el.style.transform;
       el.style.transform = "none";
@@ -270,14 +265,6 @@ export function useHomeMotion() {
       const b7 = box(team);
       const b8 = box(close);
 
-      railTravel = Math.max(0, rail.scrollWidth - window.innerWidth + 32);
-
-      measureRested(rail, () => {
-        railBase = railItems.map((it) => {
-          const r = it.getBoundingClientRect();
-          return r.left + r.width / 2;
-        });
-      });
       if (magnet) {
         measureRested(magnet, () => {
           const r = magnet.getBoundingClientRect();
@@ -381,7 +368,6 @@ export function useHomeMotion() {
       const hp = prog(hero);
       const sp = prog(silence);
       const pp = prog(peak);
-      const tp = prog(team);
 
       /* ---- write phase --------------------------------------------------- */
 
@@ -429,20 +415,6 @@ export function useHomeMotion() {
           ignited = true;
           ig.style.animation = "rise .9s var(--ease-out) both";
         }
-      }
-
-      /* crew rail */
-      if (!rm) {
-        const railX = -railTravel * tp;
-        rail.style.transform = `translate3d(${railX.toFixed(1)}px,0,0)`;
-        /* Each item's centre is its cached resting centre plus the translate
-           just written. Asking layout instead meant six forced reflows per
-           frame, every one of them immediately after that write. */
-        railItems.forEach((it, i) => {
-          const dist = Math.abs(railBase[i] + railX - vw / 2) / vw;
-          it.style.opacity =
-            i === 0 ? "1" : String(clamp(1 - dist * 0.9, 0.55, 1));
-        });
       }
 
       /* ground */

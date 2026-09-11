@@ -605,9 +605,13 @@ h1,h2,h3{margin:0;font-family:var(--font-display);text-wrap:balance}
    1537px screen, so railTravel clamps to 0 and the extra 100vh was scrolling
    with nothing moving in it. One screen, no pin. */
 #team{height:100vh}
-.railstage{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
-.rail{display:flex;align-items:center;gap:clamp(1.5rem,3vw,3rem);padding:0 var(--gut);will-change:transform}
-.railitem{flex:none;opacity:1;transition:opacity .3s var(--ease-out)}
+/* Not sticky and not clipped any more: the rail used to be translated
+   horizontally through a pinned range, and with one founder there is nothing
+   to travel. #team is a single screen and this just centres in it. */
+.railstage{position:relative;height:100vh;display:flex;align-items:center}
+.rail{display:flex;align-items:center;justify-content:center;gap:clamp(1.5rem,3vw,3rem);padding:0 var(--gut);width:100%}
+/* the opacity transition served the per-item dimming the frame loop drove */
+.railitem{flex:none}
 /* No upper bound on the rail's children — that is the whole fix.
    Every one of them used to cap in px (420 / 300 / 340), so past ~2300px the
    strip's content width froze at 2328px while the viewport kept growing,
@@ -677,17 +681,14 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
   .oitem:nth-child(2){border-top:1px solid var(--hair)}
   .railhead{width:76vw}
   .railnote{width:64vw}
-  /* #team is one screen now, so there is no pinned range left for the JS to
-     translate the rail through — but on a phone the row is still wider than
-     the viewport, and without this it simply overflowed and clipped, leaving
-     the heading parked 350px off the left edge with no way to reach it.
-     Native swipe instead, the same treatment the reduced-motion block uses.
-     width:100% is load-bearing: .rail is a flex child of .railstage, so it is
-     content-sized by default and an element that fits its own content can
-     never scroll. */
-  .railstage{overflow:hidden}
-  .rail{width:100%;overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:2rem}
-  .railitem{scroll-snap-align:center;opacity:1!important}
+  /* Stacked, not a swipe rail. Three items in a row do not fit 375px, and
+     scrolling them sideways left the founder half off the screen behind a
+     scrollbar. The section grows to its content instead of holding one screen. */
+  #team{height:auto}
+  .railstage{position:relative;height:auto;min-height:100svh;padding:4rem 0}
+  .rail{flex-direction:column;justify-content:center;gap:2.5rem;text-align:center}
+  .railhead,.railnote,.tcard{width:min(86vw,420px)}
+  .railnote{align-items:center}
   #contact{height:auto;min-height:110vh}
   .closestage{position:relative;height:auto;min-height:100vh;padding:6rem 0}
 }
