@@ -395,6 +395,12 @@ export default function PageTransition() {
 
     const internal = (a: HTMLAnchorElement | null) => {
       if (!a || a.target === "_blank" || a.hasAttribute("download")) return null;
+      /* data-native opts a link out of client routing. / is the WebGL deck, a
+         static file under public/ rather than an app route, so router.push
+         would find nothing to render — it has to be a real navigation. The
+         guard sits here rather than in onClick so the hover prefetch, which
+         shares this helper, skips it too. */
+      if (a.hasAttribute("data-native")) return null;
       const href = a.getAttribute("href") || "";
       if (!href || href.startsWith("#")) return null;
       let url: URL;

@@ -6,6 +6,10 @@ import { getLenis } from "@/lib/smooth";
 import { GradientButton } from "@/components/ui/shader-button";
 
 const LINKS = [
+  /* native: / is the WebGL deck, a static file outside the app router, so this
+     one needs a real navigation rather than a client-side push. Without it
+     there was no way off /about and back to the site root at all. */
+  { href: "/", label: "Home", native: true },
   { href: "/services", label: "Services" },
   { href: "/launch", label: "Launch" },
   { href: "/team", label: "Team" },
@@ -58,7 +62,12 @@ export default function Nav() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const menuLinks = isHome ? LINKS : [{ href: "/about", label: "Home" }, ...LINKS];
+  /* "Home" is the deck at / and lives in LINKS. Off /about the Cyphernaut page
+     needs its own way back, so it slots in behind Home as "About" — the name
+     the deck's own nav uses for it — rather than a second "Home". */
+  const menuLinks = isHome
+    ? LINKS
+    : [LINKS[0], { href: "/about", label: "About" }, ...LINKS.slice(1)];
 
   return (
     <>
@@ -81,6 +90,7 @@ export default function Nav() {
                 <a
                   key={l.href}
                   href={l.href}
+                  data-native={l.native ? "" : undefined}
                   aria-current={pathname === l.href ? "page" : undefined}
                 >
                   {l.label}
@@ -106,7 +116,11 @@ export default function Nav() {
       <div id="menu" className={open ? "on" : undefined}>
         {menuLinks.map((l, i) => (
           <span key={l.href}>
-            <a href={l.href} style={{ transitionDelay: `${i * 40}ms` }}>
+            <a
+              href={l.href}
+              data-native={l.native ? "" : undefined}
+              style={{ transitionDelay: `${i * 40}ms` }}
+            >
               {l.label}
             </a>
           </span>
