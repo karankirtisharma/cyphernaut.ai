@@ -600,7 +600,11 @@ h1,h2,h3{margin:0;font-family:var(--font-display);text-wrap:balance}
 .oitem{padding:clamp(1.75rem,3vw,2.5rem) 0;border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:.75rem}
 .oitem:nth-child(1),.oitem:nth-child(2){border-top:0}
 .oitem p{color:var(--ink-soft);max-width:36ch}
-#team{height:200vh}
+/* 100vh, not 200. The rail travelled horizontally because its content was
+   wider than the viewport; with only the founder left it is 1168px against a
+   1537px screen, so railTravel clamps to 0 and the extra 100vh was scrolling
+   with nothing moving in it. One screen, no pin. */
+#team{height:100vh}
 .railstage{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
 .rail{display:flex;align-items:center;gap:clamp(1.5rem,3vw,3rem);padding:0 var(--gut);will-change:transform}
 .railitem{flex:none;opacity:1;transition:opacity .3s var(--ease-out)}
@@ -673,6 +677,17 @@ html:not([data-cn]) [data-wipe],html:not([data-cn]) [data-iris]{clip-path:none}
   .oitem:nth-child(2){border-top:1px solid var(--hair)}
   .railhead{width:76vw}
   .railnote{width:64vw}
+  /* #team is one screen now, so there is no pinned range left for the JS to
+     translate the rail through — but on a phone the row is still wider than
+     the viewport, and without this it simply overflowed and clipped, leaving
+     the heading parked 350px off the left edge with no way to reach it.
+     Native swipe instead, the same treatment the reduced-motion block uses.
+     width:100% is load-bearing: .rail is a flex child of .railstage, so it is
+     content-sized by default and an element that fits its own content can
+     never scroll. */
+  .railstage{overflow:hidden}
+  .rail{width:100%;overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:2rem}
+  .railitem{scroll-snap-align:center;opacity:1!important}
   #contact{height:auto;min-height:110vh}
   .closestage{position:relative;height:auto;min-height:100vh;padding:6rem 0}
 }

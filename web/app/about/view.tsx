@@ -336,7 +336,7 @@ export default function HomeView() {
           <div className="railstage">
             <div className="rail" data-rail>
               <div className="railitem railhead">
-                <h2 className="dl">The crew.</h2>
+                <h2 className="dl">The founder.</h2>
               </div>
               <article className="railitem tcard">
                 <div className="tphoto">
@@ -347,36 +347,9 @@ export default function HomeView() {
                 <p className="lbl lime role">CEO &amp; Founder</p>
                 <p className="line">Sets strategy and direction for every project and client.</p>
               </article>
-              <article className="railitem tcard">
-                <div className="tphoto">
-                  <img src="/assets/parul.webp" width="800" height="1066" alt="Parul" loading="lazy" decoding="async" />
-                  <span className="tmul"></span><span className="tscrim"></span><span className="tedge"></span>
-                </div>
-                <h3 className="dm">Parul</h3>
-                <p className="lbl lime role">Design Specialist</p>
-                <p className="line">Designs the visuals that carry the campaigns.</p>
-              </article>
-              <article className="railitem tcard">
-                <div className="tphoto">
-                  <img src="/assets/vivyaan.webp" width="800" height="1066" alt="Vivyaan" loading="lazy" decoding="async" />
-                  <span className="tmul"></span><span className="tscrim"></span><span className="tedge"></span>
-                </div>
-                <h3 className="dm">Vivyaan</h3>
-                <p className="lbl lime role">Tech Lead</p>
-                <p className="line">Builds and integrates the technology behind each launch.</p>
-              </article>
-              <article className="railitem tcard">
-                <div className="tphoto">
-                  <img src="/assets/osmium.webp" width="800" height="1066" alt="Osmium" loading="lazy" decoding="async" />
-                  <span className="tmul"></span><span className="tscrim"></span><span className="tedge"></span>
-                </div>
-                <h3 className="dm">Osmium</h3>
-                <p className="lbl lime role">Manager</p>
-                <p className="line">Runs daily operations and keeps the team on target.</p>
-              </article>
               <div className="railitem railnote">
-                <p>Four people. Every engagement, end to end.</p>
-                <a className="ghost" href="/team" style={{ marginTop: '1.5rem' }}>Meet the crew<span aria-hidden="true">&#8599;</span></a>
+                <p>One founder. Every engagement, end to end.</p>
+                <a className="ghost" href="/team" style={{ marginTop: '1.5rem' }}>Meet the founder<span aria-hidden="true">&#8599;</span></a>
               </div>
             </div>
           </div>

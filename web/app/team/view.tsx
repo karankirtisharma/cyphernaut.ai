@@ -11,8 +11,8 @@ export default function TeamView() {
         <section className="phero">
           <div className="wrap">
             <p className="lbl crumb" data-rise>Team</p>
-            <h1 className="dxl" data-rise style={{ '--d': '60ms', maxWidth: '12ch' }}>The crew.</h1>
-            <p className="meas soft" data-rise style={{ '--d': '120ms' }}>Four people. Every engagement, end to end.</p>
+            <h1 className="dxl" data-rise style={{ '--d': '60ms', maxWidth: '12ch' }}>The founder.</h1>
+            <p className="meas soft" data-rise style={{ '--d': '120ms' }}>One founder. Every engagement, end to end.</p>
           </div>
         </section>
 
@@ -27,33 +27,6 @@ export default function TeamView() {
                 <h2 className="dm">Vasu Madaan</h2>
                 <p className="lbl lime role">CEO &amp; Founder</p>
                 <p className="line">Sets strategy and direction for every project and client.</p>
-              </article>
-              <article className="person" data-rise style={{ '--d': '70ms' }}>
-                <div className="tphoto">
-                  <img src="/assets/parul.webp" width="800" height="1066" alt="Parul" loading="lazy" decoding="async" />
-                  <span className="tmul"></span><span className="tscrim"></span><span className="tedge"></span>
-                </div>
-                <h2 className="dm">Parul</h2>
-                <p className="lbl lime role">Design Specialist</p>
-                <p className="line">Designs the visuals that carry the campaigns.</p>
-              </article>
-              <article className="person" data-rise style={{ '--d': '140ms' }}>
-                <div className="tphoto">
-                  <img src="/assets/vivyaan.webp" width="800" height="1066" alt="Vivyaan" loading="lazy" decoding="async" />
-                  <span className="tmul"></span><span className="tscrim"></span><span className="tedge"></span>
-                </div>
-                <h2 className="dm">Vivyaan</h2>
-                <p className="lbl lime role">Tech Lead</p>
-                <p className="line">Builds and integrates the technology behind each launch.</p>
-              </article>
-              <article className="person" data-rise style={{ '--d': '210ms' }}>
-                <div className="tphoto">
-                  <img src="/assets/osmium.webp" width="800" height="1066" alt="Osmium" loading="lazy" decoding="async" />
-                  <span className="tmul"></span><span className="tscrim"></span><span className="tedge"></span>
-                </div>
-                <h2 className="dm">Osmium</h2>
-                <p className="lbl lime role">Manager</p>
-                <p className="line">Runs daily operations and keeps the team on target.</p>
               </article>
             </div>
           </div>
