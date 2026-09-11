@@ -955,13 +955,13 @@ const proxy = buildSpine(shared);
 proxy.visible = false;
 workRoot.add(proxy);
 
-// ?spine=off skips the model entirely; ?spine=high|max|raw picks the build
+// ?spine=off skips the model entirely; only the sharp build ships now
 // ?only=emblem skips the column: it occupies the same space and makes the
 // emblem's material impossible to read against it
 if (QUERY.get('spine') !== 'off' && ONLY !== 'emblem') {
   readyTasks.push(
     loadSpine(shared, {
-      // ?spine=sharp|high|max|raw — sharp by default, see QUALITY_FILES
+      // sharp by default, and the only build in QUALITY_FILES
       quality: QUERY.get('spine') || 'sharp',
     }).then(({ group, stats }) => {
       workRoot.add(group);   // spine GLB

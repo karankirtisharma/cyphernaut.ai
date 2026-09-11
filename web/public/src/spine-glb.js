@@ -6,8 +6,13 @@ import { spinePath, SPINE_TOP, SPINE_BOTTOM } from './world.js';
 /* Spine model — Tripo export, compressed by compress.mjs.
  *
  *   source  spine.glb      69.78 MB   1,866,762 tris   4096² jpg + 4096² png
+ *   sharp   spine.sharp.glb 7.51 MB     ~840k tris    4096² webp
  *   high    spine.opt.glb   2.77 MB     298,673 tris   2048² webp  (-96.0%)
  *   max     spine.min.glb   1.18 MB      ~131k tris    1024² webp  (-98.3%)
+ *
+ * Only `sharp` ships. The others were A/B builds for picking it and cost 4 MB
+ * in the repo to serve a URL flag; compress.mjs regenerates them from the
+ * source when a comparison is needed again.
  *
  * Compressed builds use EXT_meshopt_compression + KHR_mesh_quantization +
  * EXT_texture_webp, so the loader needs the meshopt decoder wired in.
@@ -25,13 +30,14 @@ const TARGET_DIAMETER = 2.2;
 const OVERLAP = 0.92;          // segments overlap slightly so joints do not gap
 
 const QUALITY_FILES = {
-  /* sharp is the default now. The camera sits ~5 units off the column and the
-   * framing is tight, and at that distance `high` (16% of tris, 2048 maps) reads
-   * visibly soft -- mushy basecolor and a rounded-off silhouette. */
+  /* sharp is the only build that ships. The camera sits ~5 units off the column
+   * and the framing is tight, and at that distance `high` (16% of tris, 2048
+   * maps) read visibly soft -- mushy basecolor and a rounded-off silhouette.
+   * The unused entries are gone rather than left pointing at absent files:
+   * `raw` named a 69.78 MB source that was never deployed, so ?spine=raw fell
+   * through to the catch in main.js and dropped the reader onto the proxy
+   * column. Any value but `off` now resolves to sharp below. */
   sharp: 'assets/spine.sharp.glb', // 7.51 MB — 45% of tris, 4K maps
-  high: 'assets/spine.opt.glb',    // 2.77 MB
-  max:  'assets/spine.min.glb',    // 1.18 MB
-  raw:  'assets/spine.glb',        // 69.78 MB source, for A/B comparison
 };
 
 export async function loadSpine(shared, opts = {}) {
